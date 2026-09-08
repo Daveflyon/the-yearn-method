@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Yearn Method — Miriam's Classroom Tool</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; padding: 0 16px; font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; font-weight: 400; color: #1c1c1e; background: #ffffff; }
+@media (min-width: 640px) { body { padding: 0 32px; } }
+.wrap { max-width: 900px; margin: 0 auto; }
+h1 { font-size: 28px; font-weight: 700; color: #1F3864; text-align: center; margin: 32px 0 4px; }
+.subtitle { text-align: center; font-size: 19px; font-weight: 400; color: #1F3864; margin: 0 0 16px; }
+.rule { border: none; border-top: 2px solid #1F3864; margin: 0 0 32px; }
+h2 { font-size: 22px; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; color: #1F3864; margin-top: 40px; }
+h3 { font-size: 18px; font-weight: 700; color: #1F3864; margin-top: 28px; border-bottom: 1px solid #cccccc; padding-bottom: 6px; }
+h4 { font-size: 16px; font-weight: 700; color: #1c1c1e; }
+p { margin-bottom: 16px; }
+a { color: #1F3864; text-decoration: underline; }
+a:hover, a:focus { color: #2c54a0; }
+table { border-collapse: collapse; width: 100%; }
+.table-wrap { overflow-x: auto; margin-bottom: 20px; }
+th, td { border: 1px solid #cccccc; padding: 10px 14px; text-align: left; font-size: 14px; }
+th { background: #1F3864; color: #ffffff; font-weight: 700; letter-spacing: 0.04em; }
+tr:nth-child(even) td { background: #f2f2f2; }
+
+/* Callouts */
+.note, .depth, .tip, .caution { border-left: 4px solid; padding: 12px 16px; margin: 20px 0; }
+.note { border-color: #d97706; background: #fffbf0; }
+.tip { border-color: #1F3864; background: #f2f2f2; }
+.caution { border-color: #8b0000; background: #fce8e8; }
+.depth { border-color: #276221; background: #d9ead3; }
+
+/* Collapsible sections */
+details { border: 1px solid #cccccc; border-radius: 6px; margin-bottom: 16px; background: #ffffff; }
+summary { cursor: pointer; padding: 14px 18px; font-weight: 700; color: #1F3864; font-size: 17px; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-size: 22px; color: #1F3864; }
+details[open] summary::after { content: "–"; }
+.section-body { padding: 4px 18px 20px; }
+
+/* Buttons */
+button { font-family: Arial, Helvetica, sans-serif; cursor: pointer; }
+.btn-primary { background: #1F3864; color: #ffffff; border: none; padding: 12px 22px; border-radius: 4px; font-size: 15px; font-weight: 700; }
+.btn-primary:hover { background: #2c54a0; }
+.btn-secondary { background: #ffffff; color: #1F3864; border: 2px solid #1F3864; padding: 10px 20px; border-radius: 4px; font-size: 14px; font-weight: 700; }
+.btn-secondary:hover { background: #f2f2f2; }
+button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+
+/* Badges */
+.badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 13px; font-weight: 700; }
+.badge-green { background: #d9ead3; color: #276221; }
+.badge-amber { background: #fff3cd; color: #7d5a00; }
+.badge-red { background: #fce8e8; color: #8b0000; }
+
+/* Generator card */
+.generator-box { border: 2px solid #1F3864; border-radius: 8px; padding: 24px; background: #f2f2f2; margin: 20px 0; }
+.picker-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+.picker-row select { flex: 1; min-width: 180px; padding: 10px; border: 1px solid #cccccc; border-radius: 4px; font-size: 15px; }
+
+.reveal-card { background: #ffffff; border: 1px solid #cccccc; border-radius: 8px; padding: 20px; margin-top: 18px; }
+.reveal-card .stage { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #1F3864; margin-bottom: 6px; }
+.reveal-card .quote-text { font-size: 19px; font-style: italic; color: #1c1c1e; margin: 10px 0; }
+.reveal-card .who { font-size: 22px; font-weight: 700; color: #1F3864; margin: 10px 0 6px; }
+.reveal-card .teacher-line { font-size: 15px; margin-bottom: 10px; }
+.reveal-card .lesson-tie { font-size: 15px; background: #fffbf0; border-left: 4px solid #d97706; padding: 10px 14px; margin-top: 12px; }
+.source-line { font-size: 13px; color: #1c1c1e; margin-top: 12px; }
+.source-line a { color: #1F3864; }
+
+.used-tag { display: inline-block; background: #cccccc; color: #1c1c1e; font-size: 12px; padding: 2px 8px; border-radius: 3px; margin-left: 8px; }
+
+/* Feedback form */
+.feedback-box { border: 2px solid #1F3864; border-radius: 8px; padding: 24px; background: #ffffff; margin: 20px 0; }
+.feedback-box label { display: block; font-weight: 700; margin: 14px 0 6px; }
+.feedback-box select, .feedback-box textarea { width: 100%; padding: 10px; border: 1px solid #cccccc; border-radius: 4px; font-size: 15px; font-family: inherit; }
+.feedback-response { margin-top: 18px; padding: 16px; border-radius: 6px; }
+
+/* Key-value table */
+.kv td:first-child { background: #f2f2f2; font-weight: 700; width: 200px; }
+
+/* Floating TOC */
+#toc-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 1000; background: #1F3864; color: #ffffff; border: none; border-radius: 4px; padding: 12px 18px; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+#toc-menu { position: fixed; bottom: 76px; right: 24px; z-index: 1000; background: #1F3864; border-radius: 4px; max-height: 60vh; overflow-y: auto; padding: 10px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.3); min-width: 220px; }
+#toc-menu a { display: block; color: #ffffff; text-decoration: none; padding: 10px 18px; font-size: 14px; }
+#toc-menu a:hover, #toc-menu a:focus { background: #2c54a0; }
+[hidden] { display: none !important; }
+
+.progress-note { font-size: 13px; color: #1c1c1e; margin-top: 10px; }
+
+@media print {
+  #toc-toggle, #toc-menu { display: none !important; }
+  body { background: #ffffff; }
+  a { color: #1c1c1e; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>The Yearn Method</h1>
+<p class="subtitle">A classroom hook for Miriam &mdash; Functional Skills, Landau</p>
+<hr class="rule">
+
+<!-- SECTION 1: INTRO -->
+<details id="sec-intro" open>
+<summary>1. What This Is</summary>
+<div class="section-body">
+
+<p>Post-GCSE SEN learners at Landau don't need convincing that English and Maths matter. They already know. Knowing doesn't make them want to be there.</p>
+
+<p>This tool is built around one line from Antoine de Saint-Exupéry: <em>"If you want to build a ship, don't drum up the men to gather wood, divide the work, and give orders. Instead, teach them to yearn for the vast and endless sea."</em></p>
+
+<div class="tip">
+<strong>The idea in one sentence:</strong> don't sell the subject. Sell the story of someone they already admire, and let the subject ride in on the back of it.
+</div>
+
+<p>The mechanic is simple, repeatable, and takes two minutes at the start of a session:</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Step</th><th>What happens</th></tr></thead>
+<tbody>
+<tr><td>1. Quote</td><td>Miriam reads out a quote or fact, doesn't say who it's from</td></tr>
+<tr><td>2. Guess</td><td>Class tries to guess who said it or who it's about</td></tr>
+<tr><td>3. Hold the tension</td><td>If no one gets it, she doesn't just tell them &mdash; she says "I'll tell you after the class"</td></tr>
+<tr><td>4. Reveal</td><td>The person is named. Learners lean in &mdash; this is the payoff moment</td></tr>
+<tr><td>5. Teacher moment</td><td>The story of the teacher who made the difference for that person is told</td></tr>
+<tr><td>6. Tie-in</td><td>Miriam links it straight into today's lesson</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Repeated across a term, this stops being a one-off trick and becomes Miriam's signature. Learners start asking "who's it today, Miss?" before she's even started.</p>
+
+</div>
+</details>
+
+<!-- SECTION 2: WHY IT WORKS -->
+<details id="sec-why">
+<summary>2. Why It Works</summary>
+<div class="section-body">
+
+<p>Nobody is being told English or Maths matters. Nobody is being lectured. The hook is curiosity about a person they already like, and the lesson rides in afterwards, already earned.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Ordinary approach</th><th>The Yearn Method</th></tr></thead>
+<tbody>
+<tr><td>"You'll need this for real life"</td><td>Curiosity about someone famous first</td></tr>
+<tr><td>Subject justified before it's taught</td><td>Subject arrives after the hook has already landed</td></tr>
+<tr><td>Same message every week</td><td>New person, same format, never stale</td></tr>
+<tr><td>Passive listening</td><td>Active guessing, held tension, payoff</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+<strong>Why the pause matters:</strong> "I'll tell you after the class" is the yearn moment itself. Don't rush past it. The whole session, that answer is sat there unopened. That's the pull that carries them through the lesson.
+</div>
+
+</div>
+</details>
+
+<!-- SECTION 3: HOW TO RUN IT -->
+<details id="sec-how">
+<summary>3. How To Run It</summary>
+<div class="section-body">
+
+<h4>Before the lesson</h4>
+<p>Open the generator below, pick a name (or let it choose one for you), read the reveal card once so you know the beats.</p>
+
+<h4>At the start of the lesson</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Beat</th><th>What to say / do</th></tr></thead>
+<tbody>
+<tr><td>Open</td><td>Read the quote or fact cold. No name. Let it hang.</td></tr>
+<tr><td>Guess</td><td>"Anyone? Who said this?" Take two or three guesses.</td></tr>
+<tr><td>If they get it</td><td>"Well done &mdash; do you know how this helped them get where they are?"</td></tr>
+<tr><td>If they don't</td><td>"No problem. I'll tell you after the class." Move straight into the lesson.</td></tr>
+<tr><td>Reveal (end or mid-lesson)</td><td>Name the person. Let the reaction happen.</td></tr>
+<tr><td>Teacher moment</td><td>Tell the real story &mdash; the teacher, the subject, what changed.</td></tr>
+<tr><td>Tie-in</td><td>"You never know where English/Maths takes you. Let's find out today &mdash; we're learning &hellip;"</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="caution">
+<strong>Keep it light.</strong> This is not a lesson about the celebrity. Thirty seconds on the reveal, thirty seconds on the teacher moment, straight into the tie-in. If it starts to feel like a mini-lecture, it's gone on too long.
+</div>
+
+<h4>Variation keeps it alive</h4>
+<p>Don't reveal in the same spot every time. Sometimes at the start, sometimes mid-lesson, sometimes right at the end as a cliffhanger into next session. Predictable format, unpredictable timing.</p>
+
+</div>
+</details>
+
+<!-- SECTION 4: THE GENERATOR -->
+<details id="sec-generator" open>
+<summary>4. Pick Today's Story</summary>
+<div class="section-body">
+
+<p>Choose a subject focus, or leave on "Any" and let it pick for you. Each card gives you the quote, the reveal, the teacher moment, a ready-made lesson tie-in line, and the source so you can check it yourself.</p>
+
+<div class="generator-box">
+  <div class="picker-row">
+    <select id="subjectFilter" aria-label="Filter by subject">
+      <option value="any">Any subject</option>
+      <option value="English">English</option>
+      <option value="Maths">Maths</option>
+      <option value="General">General / Education</option>
+    </select>
+    <select id="personPicker" aria-label="Pick a specific person">
+      <option value="random">Surprise me</option>
+    </select>
+  </div>
+  <button class="btn-primary" id="generateBtn">Give me today's story</button>
+  <button class="btn-secondary" id="resetUsedBtn" style="margin-left:10px;">Reset used list</button>
+  <p class="progress-note" id="usedProgress"></p>
+
+  <div class="reveal-card" id="revealCard" hidden>
+    <div class="stage">Step 1 &mdash; read this cold, no name</div>
+    <p class="quote-text" id="revealQuote"></p>
+    <div class="stage" style="margin-top:16px;">Step 2 &mdash; the reveal</div>
+    <p class="who" id="revealWho"></p>
+    <div class="stage">Step 3 &mdash; the teacher moment</div>
+    <p class="teacher-line" id="revealTeacher"></p>
+    <div class="lesson-tie" id="revealTieIn"></div>
+    <p class="source-line" id="revealSource"></p>
+  </div>
+</div>
+
+</div>
+</details>
+
+<!-- SECTION 5: FEEDBACK -->
+<details id="sec-feedback">
+<summary>5. How Did It Go?</summary>
+<div class="section-body">
+
+<p>Log it after the lesson. Takes ten seconds, and the tips below adjust to what you tell it.</p>
+
+<div class="feedback-box">
+  <label for="fbOutcome">How did the class react?</label>
+  <select id="fbOutcome">
+    <option value="great">Buzzing &mdash; loads of guesses, good energy</option>
+    <option value="flat">Flat &mdash; not much reaction either way</option>
+    <option value="noguess">Nobody guessed, went a bit quiet</option>
+    <option value="offtrack">Ran long, pulled focus from the lesson</option>
+    <option value="mixed">Mixed &mdash; some into it, some not</option>
+  </select>
+
+  <label for="fbTiming">When did you reveal?</label>
+  <select id="fbTiming">
+    <option value="start">Straight away, before the lesson</option>
+    <option value="mid">Mid-lesson</option>
+    <option value="end">Saved it to the end</option>
+  </select>
+
+  <label for="fbNotes">Anything worth remembering? (optional, just for you)</label>
+  <textarea id="fbNotes" rows="3" placeholder="e.g. Jayden really connected with the Rashford one"></textarea>
+
+  <div style="margin-top:16px;">
+    <button class="btn-primary" id="fbSubmit">Get feedback</button>
+  </div>
+
+  <div class="feedback-response" id="fbResponse" hidden></div>
+</div>
+
+</div>
+</details>
+
+<!-- SECTION 6: ABOUT THE BANK -->
+<details id="sec-about">
+<summary>6. About the Story Bank</summary>
+<div class="section-body">
+
+<p>Every story here is real, sourced and checkable &mdash; not invented. Each card links to where it came from so you can verify it yourself, or show a learner the source if they ask.</p>
+
+<div class="note">
+<strong>Honest gap:</strong> celebrity stories that credit a named Maths teacher directly are genuinely rare in the public record &mdash; it's a real gap, not a search failure. The Maths and General entries lean on education-adjacent stories (a scholarship, a turnaround, a belief in someone) rather than a named Maths teacher. If you come across a good one &mdash; from a colleague, a local story, anything &mdash; that's the strongest addition you could make.</p>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Name</th><th>Subject tag</th><th>Angle</th></tr></thead>
+<tbody>
+<tr><td>Adele</td><td>English</td><td>English teacher, Miss McDonald</td></tr>
+<tr><td>Jay-Z</td><td>English</td><td>6th grade English teacher</td></tr>
+<tr><td>John Legend</td><td>English</td><td>English teacher built his confidence as a writer</td></tr>
+<tr><td>Ian Wright</td><td>General</td><td>Primary teacher who believed in him</td></tr>
+<tr><td>Stormzy</td><td>General</td><td>Cambridge Scholarship, "you're supposed to be here"</td></tr>
+<tr><td>Marcus Rashford</td><td>English</td><td>Didn't read a book until 17, now runs a book club</td></tr>
+<tr><td>Rihanna</td><td>General</td><td>PE teacher, "my mentor, my MVP"</td></tr>
+<tr><td>Billy Joel</td><td>General</td><td>Teacher told him to go professional</td></tr>
+<tr><td>Lizzo</td><td>Maths-adjacent</td><td>Teacher secured her a scholarship through discipline and belief</td></tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</details>
+
+</div>
+
+<button id="toc-toggle" aria-expanded="false" aria-controls="toc-menu">Jump to &#9662;</button>
+<nav id="toc-menu" role="navigation" hidden>
+  <a href="#sec-intro">1. What This Is</a>
+  <a href="#sec-why">2. Why It Works</a>
+  <a href="#sec-how">3. How To Run It</a>
+  <a href="#sec-generator">4. Pick Today's Story</a>
+  <a href="#sec-feedback">5. How Did It Go?</a>
+  <a href="#sec-about">6. About the Story Bank</a>
+</nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  var stories = [
+    {
+      id: "adele",
+      name: "Adele",
+      subject: "English",
+      quote: "“She really made us care, and we knew that she cared.”",
+      teacher: "Adele's English teacher, Miss McDonald, at Chestnut Grove School in south London, sparked her love of literature. Years later, ITV filmed an emotional live reunion between the two.",
+      tieIn: "You never know which lesson is the one that changes everything for you. Let's find out what today's has in store — we're learning...",
+      sourceLabel: "CNN",
+      sourceUrl: "https://www.cnn.com/2021/11/22/entertainment/adele-surprise-reunion-teacher-intl-scli-gbr"
+    },
+    {
+      id: "jayz",
+      name: "Jay-Z",
+      subject: "English",
+      quote: "“He took the reading test and he scored 12th grade in the sixth grade.”",
+      teacher: "Jay-Z's sixth-grade English teacher, Renee Rosenblum-Lowden, spotted his gift with words early and fostered his love of language — long before he became one of the best-selling artists in the world.",
+      tieIn: "One teacher, one lesson, spotted something in a kid that turned into a career built on words. Let's see what we can find today — we're learning...",
+      sourceLabel: "Washington Post",
+      sourceUrl: "https://www.washingtonpost.com/news/arts-and-entertainment/wp/2018/04/16/jay-z-is-known-for-his-words-meet-the-sixth-grade-teacher-he-credits-with-his-love-of-language/"
+    },
+    {
+      id: "legend",
+      name: "John Legend",
+      subject: "English",
+      quote: "“She recognised my potential and showed me that I could write.”",
+      teacher: "John Legend's English teacher, Mrs Bodey, at North High School built his confidence as a writer — long before the Grammys, Oscars and Emmys.",
+      tieIn: "Someone believing you can write is where it starts. Let's build that today — we're learning...",
+      sourceLabel: "Grammy.com",
+      sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel"
+    },
+    {
+      id: "wright",
+      name: "Ian Wright",
+      subject: "General",
+      quote: "“He believed in me and never gave up.”",
+      teacher: "Ian Wright's primary school teacher, Mr Pigden, was the first person who ever believed in him. Thirty years later, they were reunited live on TV — both in tears.",
+      tieIn: "One person believing in you can change everything. Let's see what today's lesson can do — we're learning...",
+      sourceLabel: "TES",
+      sourceUrl: "https://www.tes.com/news/ian-wright-his-best-teacher-mr-pigden"
+    },
+    {
+      id: "stormzy",
+      name: "Stormzy",
+      subject: "General",
+      quote: "“No, you're supposed to be here.”",
+      teacher: "Stormzy funds a Cambridge Scholarship for Black students through his #Merky Foundation. One of the first scholars said the scholarship gave him the self-belief that he belonged there. Applications from Black students to Cambridge rose 131% since it launched.",
+      tieIn: "Believing you belong somewhere is half the battle. Let's build that belief today — we're learning...",
+      sourceLabel: "Varsity",
+      sourceUrl: "https://www.varsity.co.uk/interviews/27541"
+    },
+    {
+      id: "rashford",
+      name: "Marcus Rashford",
+      subject: "English",
+      quote: "“I never saw reading as something to do.”",
+      teacher: "Marcus Rashford didn't read his first book until he was 17. Now he runs a book club to make sure other young people get the chance earlier than he did.",
+      tieIn: "It's never too late to start — and it's easier with someone in your corner. Let's crack on — we're learning...",
+      sourceLabel: "Channel 4",
+      sourceUrl: "https://www.channel4.com/news/footballer-marcus-rashford-i-want-to-give-the-next-generation-the-opportunity-to-read"
+    },
+    {
+      id: "rihanna",
+      name: "Rihanna",
+      subject: "General",
+      quote: "“My mentor, my champ, my MVP.”",
+      teacher: "Rihanna's PE teacher, Roddy Estwick, at Combermere School in Barbados made a lasting impact on her long before global stardom.",
+      tieIn: "A teacher who backs you shapes more than just one subject. Let's get into it — we're learning...",
+      sourceLabel: "Grammy.com",
+      sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel"
+    },
+    {
+      id: "joel",
+      name: "Billy Joel",
+      subject: "General",
+      quote: "“You should be a professional musician.”",
+      teacher: "Billy Joel's music teacher, Chuck Arnold, told him directly he should go professional. Joel says it had a huge influence on the path he took.",
+      tieIn: "Sometimes it just takes one person saying it out loud. Let's get started — we're learning...",
+      sourceLabel: "Grammy.com",
+      sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel"
+    },
+    {
+      id: "lizzo",
+      name: "Lizzo",
+      subject: "Maths",
+      quote: "“Those moments meant so much to me.”",
+      teacher: "Lizzo's band director, Manny Gonzales, at Elsik High School helped secure her a scholarship through structure, discipline and belief in her ability — the same qualities that make numbers click when someone backs you to get there.",
+      tieIn: "Structure and someone backing you — that's how skills turn into scholarships and careers. Let's build some structure today — we're learning...",
+      sourceLabel: "Grammy.com",
+      sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel"
+    }
+  ];
+
+  var STORAGE_KEY_USED = "yearnMethodUsedIds";
+  var subjectFilter = document.getElementById("subjectFilter");
+  var personPicker = document.getElementById("personPicker");
+  var generateBtn = document.getElementById("generateBtn");
+  var resetUsedBtn = document.getElementById("resetUsedBtn");
+  var revealCard = document.getElementById("revealCard");
+  var usedProgress = document.getElementById("usedProgress");
+
+  function getUsed() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY_USED);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function setUsed(arr) {
+    try { localStorage.setItem(STORAGE_KEY_USED, JSON.stringify(arr)); } catch (e) {}
+  }
+  function markUsed(id) {
+    var used = getUsed();
+    if (used.indexOf(id) === -1) used.push(id);
+    setUsed(used);
+    renderProgress();
+  }
+  function renderProgress() {
+    var used = getUsed();
+    usedProgress.textContent = "Used " + used.length + " of " + stories.length + " stories.";
+  }
+
+  function populatePersonPicker() {
+    var filterVal = subjectFilter.value;
+    personPicker.innerHTML = '<option value="random">Surprise me</option>';
+    stories.forEach(function (s) {
+      if (filterVal === "any" || s.subject === filterVal) {
+        var opt = document.createElement("option");
+        opt.value = s.id;
+        opt.textContent = s.name;
+        personPicker.appendChild(opt);
+      }
+    });
+  }
+
+  subjectFilter.addEventListener("change", populatePersonPicker);
+  populatePersonPicker();
+  renderProgress();
+
+  function pickStory() {
+    var filterVal = subjectFilter.value;
+    var chosenId = personPicker.value;
+    var pool = stories.filter(function (s) {
+      return filterVal === "any" || s.subject === filterVal;
+    });
+    if (chosenId !== "random") {
+      var direct = stories.filter(function (s) { return s.id === chosenId; });
+      if (direct.length) return direct[0];
+    }
+    var used = getUsed();
+    var fresh = pool.filter(function (s) { return used.indexOf(s.id) === -1; });
+    var candidates = fresh.length ? fresh : pool;
+    return candidates[Math.floor(Math.random() * candidates.length)];
+  }
+
+  generateBtn.addEventListener("click", function () {
+    var story = pickStory();
+    if (!story) return;
+    document.getElementById("revealQuote").textContent = story.quote;
+    document.getElementById("revealWho").textContent = story.name;
+    document.getElementById("revealTeacher").textContent = story.teacher;
+    document.getElementById("revealTieIn").textContent = story.tieIn;
+    var srcEl = document.getElementById("revealSource");
+    srcEl.innerHTML = "Source: <a href=\"" + story.sourceUrl + "\" target=\"_blank\" rel=\"noopener\">" + story.sourceLabel + "</a>";
+    revealCard.hidden = false;
+    markUsed(story.id);
+  });
+
+  resetUsedBtn.addEventListener("click", function () {
+    setUsed([]);
+    renderProgress();
+  });
+
+  // Feedback logic
+  var fbSubmit = document.getElementById("fbSubmit");
+  var fbResponse = document.getElementById("fbResponse");
+
+  var feedbackTips = {
+    great: {
+      badge: "badge-green", badgeText: "Keep doing this",
+      text: "That's the reaction you're after. Keep the format exactly as it is. Consider letting a learner run the guessing next time — handing over the reveal moment can lift energy even further."
+    },
+    flat: {
+      badge: "badge-amber", badgeText: "Adjust the pick",
+      text: "A flat reaction is usually about the person, not the method. Try someone with more current pull — check what they're actually into right now, music, sport, gaming, YouTube — rather than a name that felt safe to pick."
+    },
+    noguess: {
+      badge: "badge-amber", badgeText: "Still worked",
+      text: "Nobody guessing isn't a failure — it's the tension doing its job. The pause and the reveal at the end are still landing. Keep holding it back rather than rushing to tell them."
+    },
+    offtrack: {
+      badge: "badge-red", badgeText: "Tighten it",
+      text: "Cap it at 60 seconds total. Quote, guess, one line on the reveal, one line on the teacher, straight into the lesson. If it's pulling focus, it's grown past its job — shrink it back down."
+    },
+    mixed: {
+      badge: "badge-amber", badgeText: "Normal, keep varying",
+      text: "Mixed reactions are normal in any class. Vary who and when you reveal — not everyone connects to every name, and that's fine over a term of different stories."
+    }
+  };
+
+  var timingTips = {
+    start: "Revealing early works well when you want energy up before the lesson starts.",
+    mid: "Mid-lesson reveals are good for re-grabbing attention if focus is dipping.",
+    end: "Saving it for the end builds the longest tension — strongest option once the format is familiar to the class."
+  };
+
+  fbSubmit.addEventListener("click", function () {
+    var outcome = document.getElementById("fbOutcome").value;
+    var timing = document.getElementById("fbTiming").value;
+    var tip = feedbackTips[outcome];
+    var timingTip = timingTips[timing];
+    fbResponse.className = "feedback-response " + (outcome === "great" ? "depth" : outcome === "offtrack" ? "caution" : "note");
+    fbResponse.innerHTML =
+      '<span class="badge ' + tip.badge + '">' + tip.badgeText + '</span>' +
+      '<p style="margin-top:10px;">' + tip.text + '</p>' +
+      '<p style="margin-top:6px;">' + timingTip + '</p>';
+    fbResponse.hidden = false;
+  });
+
+  // Floating TOC
+  var tocToggle = document.getElementById("toc-toggle");
+  var tocMenu = document.getElementById("toc-menu");
+  tocToggle.addEventListener("click", function () {
+    var isHidden = tocMenu.hasAttribute("hidden");
+    if (isHidden) {
+      tocMenu.removeAttribute("hidden");
+      tocToggle.setAttribute("aria-expanded", "true");
+    } else {
+      tocMenu.setAttribute("hidden", "");
+      tocToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+  tocMenu.querySelectorAll("a").forEach(function (a) {
+    a.addEventListener("click", function () {
+      tocMenu.setAttribute("hidden", "");
+      tocToggle.setAttribute("aria-expanded", "false");
+    });
+  });
+
+});
+</script>
+
+</body>
+</html>
