@@ -8,7 +8,7 @@
 * { box-sizing: border-box; }
 body { margin: 0; padding: 0 16px; font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; font-weight: 400; color: #1c1c1e; background: #ffffff; }
 @media (min-width: 640px) { body { padding: 0 32px; } }
-.wrap { max-width: 900px; margin: 0 auto; }
+.wrap { max-width: 900px; margin: 0 auto; padding-bottom: 90px; }
 h1 { font-size: 28px; font-weight: 700; color: #1F3864; text-align: center; margin: 32px 0 4px; }
 .subtitle { text-align: center; font-size: 19px; font-weight: 400; color: #1F3864; margin: 0 0 16px; }
 .rule { border: none; border-top: 2px solid #1F3864; margin: 0 0 24px; }
@@ -43,7 +43,6 @@ summary::-webkit-details-marker { display: none; }
 summary::after { content: "+"; font-size: 22px; color: #1F3864; }
 details[open] summary::after { content: "–"; }
 .section-body { padding: 4px 18px 20px; }
-.expand-all-row { text-align: right; margin: 0 0 16px; }
 
 /* Buttons */
 button { font-family: Arial, Helvetica, sans-serif; cursor: pointer; }
@@ -67,6 +66,7 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 .reveal-card { background: #ffffff; border: 1px solid #cccccc; border-radius: 8px; padding: 20px; margin-top: 18px; }
 .reveal-card .stage { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #1F3864; margin-bottom: 6px; }
 .reveal-card .quote-text { font-size: 19px; font-style: italic; color: #1c1c1e; margin: 10px 0; }
+.reveal-card .quote-context { font-size: 13px; color: #1F3864; font-weight: 700; margin: -4px 0 10px; }
 .reveal-card .who { font-size: 22px; font-weight: 700; color: #1F3864; margin: 10px 0 6px; }
 .reveal-card .teacher-line { font-size: 15px; margin-bottom: 10px; }
 .reveal-card .lesson-tie { font-size: 15px; background: #fffbf0; border-left: 4px solid #d97706; padding: 10px 14px; margin-top: 12px; }
@@ -85,7 +85,9 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 .kv td:first-child { background: #f2f2f2; font-weight: 700; width: 200px; }
 
 /* Floating TOC */
-#toc-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 1000; background: #1F3864; color: #ffffff; border: none; border-radius: 4px; padding: 12px 18px; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+#toc-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 1000; background: #1F3864; color: #ffffff; border: none; border-radius: 4px; padding: 10px 16px; font-weight: 700; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+#expandAllBtn { position: fixed; bottom: 24px; left: 24px; z-index: 1000; background: #1F3864; color: #ffffff; border: none; border-radius: 4px; padding: 10px 16px; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.2); cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 14px; max-width: 44vw; }
+#expandAllBtn:hover, #expandAllBtn:focus { background: #2c54a0; }
 #toc-menu { position: fixed; bottom: 76px; right: 24px; z-index: 1000; background: #1F3864; border-radius: 4px; max-height: 60vh; overflow-y: auto; padding: 10px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.3); min-width: 220px; }
 #toc-menu a { display: block; color: #ffffff; text-decoration: none; padding: 10px 18px; font-size: 14px; }
 #toc-menu a:hover, #toc-menu a:focus { background: #2c54a0; }
@@ -125,7 +127,7 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 .bio-card[hidden] { display: none !important; }
 
 @media print {
-  #toc-toggle, #toc-menu { display: none !important; }
+  #toc-toggle, #toc-menu, #expandAllBtn { display: none !important; }
   body { background: #ffffff; }
   a { color: #1c1c1e; }
 }
@@ -143,10 +145,6 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 </div>
 
 <hr class="rule">
-
-<div class="expand-all-row">
-<button class="btn-secondary" id="expandAllBtn">Expand all sections</button>
-</div>
 
 <!-- SECTION 1: INTRO -->
 <details id="sec-intro">
@@ -270,6 +268,7 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
   <div class="reveal-card" id="revealCard" hidden>
     <div class="stage">Step 1 &mdash; read this cold, no name</div>
     <p class="quote-text" id="revealQuote"></p>
+    <p class="quote-context" id="revealQuoteContext"></p>
     <div class="stage" style="margin-top:16px;">Step 2 &mdash; the reveal</div>
     <p class="who" id="revealWho"></p>
     <div class="stage">Step 3 &mdash; the teacher moment</div>
@@ -366,6 +365,7 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 
 </div>
 
+<button id="expandAllBtn" aria-label="Expand or collapse all sections">Expand all</button>
 <button id="toc-toggle" aria-expanded="false" aria-controls="toc-menu">Jump to &#9662;</button>
 <nav id="toc-menu" role="navigation" hidden>
   <a href="#sec-intro">1. What This Is</a>
@@ -386,6 +386,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Singer-songwriter",
       subject: "English",
       quote: "“She really made us care, and we knew that she cared.”",
+      quoteContext: "on ITV, meeting her old teacher again years later",
       teacher: "Adele's English teacher, Miss McDonald, at Chestnut Grove School in south London, sparked her love of literature. Years later, ITV filmed an emotional live reunion between the two.",
       tieIn: "You never know which lesson is the one that changes everything for you. Let's find out what today's has in store — we're learning...",
       sourceLabel: "CNN",
@@ -401,6 +402,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Rapper & entrepreneur",
       subject: "English",
       quote: "“He took the reading test and he scored 12th grade in the sixth grade.”",
+      quoteContext: "in a 2018 Washington Post interview with his old teacher",
       teacher: "Jay-Z's sixth-grade English teacher, Renee Rosenblum-Lowden, spotted his gift with words early and fostered his love of language — long before he became one of the best-selling artists in the world.",
       tieIn: "One teacher, one lesson, spotted something in a kid that turned into a career built on words. Let's see what we can find today — we're learning...",
       sourceLabel: "Washington Post",
@@ -416,6 +418,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Singer, songwriter & pianist",
       subject: "English",
       quote: "“She recognised my potential and showed me that I could write.”",
+      quoteContext: "in a Grammy Music Educator interview",
       teacher: "John Legend's English teacher, Mrs Bodey, at North High School built his confidence as a writer — long before the Grammys, Oscars and Emmys.",
       tieIn: "Someone believing you can write is where it starts. Let's build that today — we're learning...",
       sourceLabel: "Grammy.com",
@@ -431,6 +434,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Former footballer & broadcaster",
       subject: "General",
       quote: "“He believed in me and never gave up.”",
+      quoteContext: "reunited with his old teacher live on TV",
       teacher: "Ian Wright's primary school teacher, Mr Pigden, was the first person who ever believed in him. Thirty years later, they were reunited live on TV — both in tears.",
       tieIn: "One person believing in you can change everything. Let's see what today's lesson can do — we're learning...",
       sourceLabel: "TES",
@@ -446,6 +450,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Grime artist",
       subject: "General",
       quote: "“No, you're supposed to be here.”",
+      quoteContext: "a #Merky Scholar speaking to Varsity about the scheme",
       teacher: "Stormzy funds a Cambridge Scholarship for Black students through his #Merky Foundation. One of the first scholars said the scholarship gave him the self-belief that he belonged there. Applications from Black students to Cambridge rose 131% since it launched.",
       tieIn: "Believing you belong somewhere is half the battle. Let's build that belief today — we're learning...",
       sourceLabel: "Varsity",
@@ -461,6 +466,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Footballer",
       subject: "English",
       quote: "“I never saw reading as something to do.”",
+      quoteContext: "in a Channel 4 News interview on his reading campaign",
       teacher: "Marcus Rashford didn't read his first book until he was 17. Now he runs a book club to make sure other young people get the chance earlier than he did.",
       tieIn: "It's never too late to start — and it's easier with someone in your corner. Let's crack on — we're learning...",
       sourceLabel: "Channel 4",
@@ -476,6 +482,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Singer & entrepreneur",
       subject: "General",
       quote: "“My mentor, my champ, my MVP.”",
+      quoteContext: "in a Grammy Music Educator interview",
       teacher: "Rihanna's PE teacher, Roddy Estwick, at Combermere School in Barbados made a lasting impact on her long before global stardom.",
       tieIn: "A teacher who backs you shapes more than just one subject. Let's get into it — we're learning...",
       sourceLabel: "Grammy.com",
@@ -491,6 +498,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Singer-songwriter & pianist",
       subject: "General",
       quote: "“You should be a professional musician.”",
+      quoteContext: "recalling what his music teacher told him, in a Grammy interview",
       teacher: "Billy Joel's music teacher, Chuck Arnold, told him directly he should go professional. Joel says it had a huge influence on the path he took.",
       tieIn: "Sometimes it just takes one person saying it out loud. Let's get started — we're learning...",
       sourceLabel: "Grammy.com",
@@ -506,6 +514,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Singer & rapper",
       subject: "Maths",
       quote: "“Those moments meant so much to me.”",
+      quoteContext: "in a Grammy Music Educator interview",
       teacher: "Lizzo's band director, Manny Gonzales, at Elsik High School helped secure her a scholarship through structure, discipline and belief in her ability — the same qualities that make numbers click when someone backs you to get there.",
       tieIn: "Structure and someone backing you — that's how skills turn into scholarships and careers. Let's build some structure today — we're learning...",
       sourceLabel: "Grammy.com",
@@ -521,6 +530,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Singer-songwriter",
       subject: "English",
       quote: "“I remember Dua from when she was 10. She was a lovely kid.”",
+      quoteContext: "her old teacher, surprised on BBC Radio 1",
       teacher: "Dua Lipa's old Year 6 teacher, Rob, is now headteacher at her former primary school. She surprised him live on a BBC Radio 1 stunt years later — and admitted she didn't even get the lead role in the school play back then.",
       tieIn: "Not getting picked first doesn't mean anything about where you end up. Let's see what today brings — we're learning...",
       sourceLabel: "Camden New Journal",
@@ -536,6 +546,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Actor",
       subject: "General",
       quote: "“My spelling was really the biggest hurdle. I worked really hard at school.”",
+      quoteContext: "in an NBC interview on his dyslexia and ADHD",
       teacher: "Tom Holland, who plays Spider-Man, was diagnosed with dyslexia at age 7 and later shared he has ADHD too. He says spelling was his biggest struggle at school, and that his parents backing him with 'as long as you try your best' carried him through it.",
       tieIn: "Struggling with something doesn't mean you're not capable of something huge. Let's get stuck in — we're learning...",
       sourceLabel: "NBC New York",
@@ -551,6 +562,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Formula 1 driver",
       subject: "Maths",
       quote: "“I struggled in school and never felt like my voice was heard.”",
+      quoteContext: "meeting the Prime Minister to push for education reform",
       teacher: "Lewis Hamilton has spoken openly about struggling in school and being bullied, and now works directly with government on education reform through his Mission 44 foundation, pushing for every student to feel they belong in the classroom.",
       tieIn: "Feeling unheard in school doesn't decide how far you go. Let's make sure everyone's heard today — we're learning...",
       sourceLabel: "Motorsport.com",
@@ -566,6 +578,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Singer-songwriter",
       subject: "English",
       quote: "“There's no one in the world that can be a better you than you.”",
+      quoteContext: "in a speech to young people who stutter",
       teacher: "Ed Sheeran developed a stutter as a child after treatment for a birthmark, on top of poor eyesight and a missing eardrum. He's spoken to young people about it directly, telling them to 'embrace your weirdness' rather than treat it as something limiting.",
       tieIn: "The things that make you different aren't the things holding you back. Let's get going — we're learning...",
       sourceLabel: "TIME",
@@ -581,6 +594,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Entrepreneur",
       subject: "Maths",
       quote: "“If something really interests me, I can excel at it.”",
+      quoteContext: "in a Robb Report interview on his dyslexia",
       teacher: "Richard Branson struggled badly at school with dyslexia and left at 16. He's since said dyslexia is his 'superpower' — it taught him to delegate and surround himself with people who complement what he's not naturally strong at.",
       tieIn: "Struggling with a subject doesn't mean you can't build something huge around it. Let's get into it — we're learning...",
       sourceLabel: "Robb Report",
@@ -596,6 +610,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Singer-songwriter",
       subject: "General",
       quote: "\u201cI was collared for a BB gun in class. It wasn't loaded or anything, but me waving it around didn't go down too well.\u201d",
+      quoteContext: "in his 2016 memoir, Zayn",
       teacher: "Zayn Malik was diagnosed with ADHD at Tong High School in Bradford after being pulled up for messing about in class. In his memoir he says he could never focus and was constantly getting into trouble \u2014 years before he became one of the best-selling pop stars in the world.",
       tieIn: "Getting labelled the trouble one in class doesn't mean there isn't something worth building on. Let's find out what today's is \u2014 we're learning...",
       sourceLabel: "E! News",
@@ -611,6 +626,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Actor & singer-songwriter",
       subject: "English",
       quote: "\u201cI did get kicked out of school for not being able to read when I was a kid.\u201d",
+      quoteContext: "in a TODAY show interview on her dyslexia",
       teacher: "Maya Hawke is dyslexic and was held back into lower and lower reading groups every year at school, and says she was bullied for it. She now calls it one of the great blessings of her life \u2014 it pushed her towards acting and music instead.",
       tieIn: "Struggling with reading doesn't mean you're not going somewhere \u2014 it just means your path looks different. Let's find out where today's lesson takes us \u2014 we're learning...",
       sourceLabel: "TODAY",
@@ -626,6 +642,7 @@ document.addEventListener('DOMContentLoaded', function () {
       profession: "Singer",
       subject: "General",
       quote: "\u201cI have always known that I have had an unfair label put upon me.\u201d",
+      quoteContext: "on revealing her Asperger's diagnosis, Dec 2013",
       teacher: "Susan Boyle struggled at school and was bullied by other children, long before anyone understood why. She wasn't diagnosed with Asperger's until she was 51 \u2014 after her Britain's Got Talent fame \u2014 and says finally understanding herself was a huge relief.",
       tieIn: "Sometimes it takes a while for people to understand how your brain works \u2014 that doesn't mean it isn't working. Let's find out today's story \u2014 we're learning...",
       sourceLabel: "CBS News",
@@ -634,6 +651,22 @@ document.addEventListener('DOMContentLoaded', function () {
       achievements: ["Her audition performance of 'I Dreamed a Dream' became a worldwide viral sensation", "Has sold more than 25 million albums worldwide", "Diagnosed with Asperger's syndrome at 51, after decades of being misunderstood at school", "Has toured and recorded steadily since her 2009 breakthrough"],
       bioQuote: "\u201cAsperger's doesn't define me. It's a condition that I have to live with and work through, but I feel more relaxed about myself.\u201d",
       bioSource: "CBS News", bioSourceUrl: "https://www.cbsnews.com/news/susan-boyle-i-have-aspergers-syndrome"
+    },
+    {
+      id: "bronze",
+      name: "Lucy Bronze",
+      profession: "Footballer",
+      subject: "General",
+      quote: "\u201cI remember having anxiety at school, or because I struggled with dyslexia and moved abroad when I was 17 to live in America.\u201d",
+      quoteContext: "in an England Football Mental Health Awareness Week interview",
+      teacher: "Lucy Bronze has spoken about struggling with anxiety and dyslexia at school, and more recently about being diagnosed with ADHD and autism as an adult \u2014 which she now calls her superpower, saying the hyper-focus it gives her is what built her football career.",
+      tieIn: "Anxiety and a diagnosis don't stop you getting anywhere \u2014 sometimes they're part of how you get there. Let's find out today's story \u2014 we're learning...",
+      sourceLabel: "England Football",
+      sourceUrl: "https://www.englandfootball.com/articles/2023/May/16/mental-health-awareness-week-20230516",
+      bio: "Lucy Bronze is an England international footballer, widely regarded as one of the greatest defenders in the history of the women's game.",
+      achievements: ["Won UEFA Women's Euro 2022 and Euro 2025 with England", "Won 5 Champions League titles \u2014 3 with Lyon, 2 with Barcelona \u2014 more than any other English player", "First English footballer, male or female, to win The Best FIFA Women's Player award (2020)", "Diagnosed with ADHD and autism as an adult, and calls it her superpower on the pitch"],
+      bioQuote: "\u201cAll the things I have because of autism have worked in my advantage \u2014 that's my hyper-focus on football.\u201d",
+      bioSource: "Yahoo Sports", bioSourceUrl: "https://sports.yahoo.com/article/england-star-lucy-bronze-opens-124409499.html"
     }
   ];
 
@@ -649,7 +682,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var allDetails = Array.prototype.slice.call(document.querySelectorAll(".wrap > details"));
   function setAllDetails(openState) {
     allDetails.forEach(function (d) { d.open = openState; });
-    expandAllBtn.textContent = openState ? "Collapse all sections" : "Expand all sections";
+    expandAllBtn.textContent = openState ? "Collapse all" : "Expand all";
   }
   if (expandAllBtn) {
     expandAllBtn.addEventListener("click", function () {
@@ -715,6 +748,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var story = pickStory();
     if (!story) return;
     document.getElementById("revealQuote").textContent = story.quote;
+    document.getElementById("revealQuoteContext").textContent = "(" + story.quoteContext + ")";
     document.getElementById("revealWho").textContent = story.name;
     document.getElementById("revealTeacher").textContent = story.teacher;
     document.getElementById("revealTieIn").textContent = story.tieIn;
