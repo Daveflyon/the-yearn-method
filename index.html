@@ -43,6 +43,7 @@ summary::-webkit-details-marker { display: none; }
 summary::after { content: "+"; font-size: 22px; color: #1F3864; }
 details[open] summary::after { content: "–"; }
 .section-body { padding: 4px 18px 20px; }
+.expand-all-row { text-align: right; margin: 0 0 16px; }
 
 /* Buttons */
 button { font-family: Arial, Helvetica, sans-serif; cursor: pointer; }
@@ -90,7 +91,7 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 #toc-menu a:hover, #toc-menu a:focus { background: #2c54a0; }
 [hidden] { display: none !important; }
 
-.progress-note { font-size: 13px; color: #1c1c1e; margin-top: 10px; }
+.progress-note { font-size: 13px; color: #1c1c1e; margin-top: 14px; }
 
 /* Bio snapshot inside reveal card */
 .bio-snapshot { margin-top: 14px; padding: 12px 14px; background: #f2f2f2; border-radius: 6px; border-left: 4px solid #1F3864; }
@@ -143,8 +144,12 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 
 <hr class="rule">
 
+<div class="expand-all-row">
+<button class="btn-secondary" id="expandAllBtn">Expand all sections</button>
+</div>
+
 <!-- SECTION 1: INTRO -->
-<details id="sec-intro" open>
+<details id="sec-intro">
 <summary>1. What This Is</summary>
 <div class="section-body">
 
@@ -152,7 +157,7 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 
 <p>That's what this tool gives Miriam. Not a set of arguments for why Functional Skills matters, but a two-minute ritual she runs at the start of a session that turns curiosity about someone famous into the doorway for that day's lesson, quietly, every time, without ever once mentioning why English or Maths is "important."</p>
 
-<p>This tool is built around one line from Antoine de Saint-Exup&eacute;ry: <em>"If you want to build a ship, don't drum up the men to gather wood, divide the work, and give orders. Instead, teach them to yearn for the vast and endless sea."</em></p>
+<p>This tool is built around the quote above from Antoine de Saint-Exup&eacute;ry.</p>
 
 <div class="tip">
 <strong>The idea in one sentence:</strong> don't sell the subject. Sell the story of someone they already admire, and let the subject ride in on the back of it.
@@ -240,7 +245,7 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 </details>
 
 <!-- SECTION 4: THE GENERATOR -->
-<details id="sec-generator" open>
+<details id="sec-generator">
 <summary>4. Pick Today's Story</summary>
 <div class="section-body">
 
@@ -584,6 +589,51 @@ document.addEventListener('DOMContentLoaded', function () {
       achievements: ["Founded Virgin Records in 1973, a major label for punk and new wave", "Grew Virgin Atlantic from a single aircraft into a major airline", "Built Virgin into around 100 businesses by the 1990s", "Flew to space himself on a Virgin Galactic test flight in 2021"],
       bioQuote: "“The fact that I was dyslexic meant that, from a very young age, I found fantastic people to surround myself with. It taught me to delegate.”",
       bioSource: "Robb Report", bioSourceUrl: "https://robbreport.com/lifestyle/news/richard-branson-dyslexia-1234727547/"
+    },
+    {
+      id: "zayn",
+      name: "Zayn Malik",
+      profession: "Singer-songwriter",
+      subject: "General",
+      quote: "\u201cI was collared for a BB gun in class. It wasn't loaded or anything, but me waving it around didn't go down too well.\u201d",
+      teacher: "Zayn Malik was diagnosed with ADHD at Tong High School in Bradford after being pulled up for messing about in class. In his memoir he says he could never focus and was constantly getting into trouble \u2014 years before he became one of the best-selling pop stars in the world.",
+      tieIn: "Getting labelled the trouble one in class doesn't mean there isn't something worth building on. Let's find out what today's is \u2014 we're learning...",
+      sourceLabel: "E! News",
+      sourceUrl: "https://www.eonline.com/news/806459/zayn-malik-reveals-struggle-with-adhd",
+      bio: "Zayn Malik is a British singer-songwriter from Bradford, formerly of One Direction, who became one of the biggest-selling solo artists to come out of a boy band.",
+      achievements: ["Debut solo single 'Pillowtalk' went straight to Number 1 in the UK and US", "First UK artist ever to debut at Number 1 on the US Hot 100 with a debut single", "Debut album Mind of Mine went to Number 1 in both the UK and US", "Won the Billboard Music Award for New Artist of the Year with One Direction and again solo \u2014 the only artist to do it twice"],
+      bioQuote: "\u201cI was pretty wild. I could never focus, couldn't get a handle on where my brain wanted to go.\u201d \u2014 on growing up before his ADHD diagnosis",
+      bioSource: "E! News", bioSourceUrl: "https://www.eonline.com/news/806459/zayn-malik-reveals-struggle-with-adhd"
+    },
+    {
+      id: "hawke",
+      name: "Maya Hawke",
+      profession: "Actor & singer-songwriter",
+      subject: "English",
+      quote: "\u201cI did get kicked out of school for not being able to read when I was a kid.\u201d",
+      teacher: "Maya Hawke is dyslexic and was held back into lower and lower reading groups every year at school, and says she was bullied for it. She now calls it one of the great blessings of her life \u2014 it pushed her towards acting and music instead.",
+      tieIn: "Struggling with reading doesn't mean you're not going somewhere \u2014 it just means your path looks different. Let's find out where today's lesson takes us \u2014 we're learning...",
+      sourceLabel: "TODAY",
+      sourceUrl: "https://www.today.com/popculture/maya-hawke-says-she-was-kicked-out-school-because-she-t191088",
+      bio: "Maya Hawke is a British-American actor and singer-songwriter, best known for playing Robin in Stranger Things.",
+      achievements: ["Played Robin Buckley in Stranger Things from 2019 to 2025", "Cast as Jo March in BBC's Little Women after leaving drama school", "Released four studio albums as a singer-songwriter, starting with Blush in 2020", "Won a Saturn Award for Best Supporting Actress for her Stranger Things role"],
+      bioQuote: "\u201cIt is, like, one of the great blessings of my life in a lot of ways.\u201d \u2014 on living with dyslexia",
+      bioSource: "TODAY", bioSourceUrl: "https://www.today.com/popculture/maya-hawke-says-she-was-kicked-out-school-because-she-t191088"
+    },
+    {
+      id: "boyle",
+      name: "Susan Boyle",
+      profession: "Singer",
+      subject: "General",
+      quote: "\u201cI have always known that I have had an unfair label put upon me.\u201d",
+      teacher: "Susan Boyle struggled at school and was bullied by other children, long before anyone understood why. She wasn't diagnosed with Asperger's until she was 51 \u2014 after her Britain's Got Talent fame \u2014 and says finally understanding herself was a huge relief.",
+      tieIn: "Sometimes it takes a while for people to understand how your brain works \u2014 that doesn't mean it isn't working. Let's find out today's story \u2014 we're learning...",
+      sourceLabel: "CBS News",
+      sourceUrl: "https://www.cbsnews.com/news/susan-boyle-i-have-aspergers-syndrome",
+      bio: "Susan Boyle is a Scottish singer who became a global star overnight after her 2009 Britain's Got Talent audition, aged 47.",
+      achievements: ["Her audition performance of 'I Dreamed a Dream' became a worldwide viral sensation", "Has sold more than 25 million albums worldwide", "Diagnosed with Asperger's syndrome at 51, after decades of being misunderstood at school", "Has toured and recorded steadily since her 2009 breakthrough"],
+      bioQuote: "\u201cAsperger's doesn't define me. It's a condition that I have to live with and work through, but I feel more relaxed about myself.\u201d",
+      bioSource: "CBS News", bioSourceUrl: "https://www.cbsnews.com/news/susan-boyle-i-have-aspergers-syndrome"
     }
   ];
 
@@ -594,6 +644,19 @@ document.addEventListener('DOMContentLoaded', function () {
   var resetUsedBtn = document.getElementById("resetUsedBtn");
   var revealCard = document.getElementById("revealCard");
   var usedProgress = document.getElementById("usedProgress");
+
+  var expandAllBtn = document.getElementById("expandAllBtn");
+  var allDetails = Array.prototype.slice.call(document.querySelectorAll(".wrap > details"));
+  function setAllDetails(openState) {
+    allDetails.forEach(function (d) { d.open = openState; });
+    expandAllBtn.textContent = openState ? "Collapse all sections" : "Expand all sections";
+  }
+  if (expandAllBtn) {
+    expandAllBtn.addEventListener("click", function () {
+      var anyClosed = allDetails.some(function (d) { return !d.open; });
+      setAllDetails(anyClosed);
+    });
+  }
 
   function getUsed() {
     try {
