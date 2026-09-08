@@ -11,7 +11,7 @@ body { margin: 0; padding: 0 16px; font-family: Arial, Helvetica, sans-serif; fo
 .wrap { max-width: 900px; margin: 0 auto; }
 h1 { font-size: 28px; font-weight: 700; color: #1F3864; text-align: center; margin: 32px 0 4px; }
 .subtitle { text-align: center; font-size: 19px; font-weight: 400; color: #1F3864; margin: 0 0 16px; }
-.rule { border: none; border-top: 2px solid #1F3864; margin: 0 0 32px; }
+.rule { border: none; border-top: 2px solid #1F3864; margin: 0 0 24px; }
 h2 { font-size: 22px; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; color: #1F3864; margin-top: 40px; }
 h3 { font-size: 18px; font-weight: 700; color: #1F3864; margin-top: 28px; border-bottom: 1px solid #cccccc; padding-bottom: 6px; }
 h4 { font-size: 16px; font-weight: 700; color: #1c1c1e; }
@@ -23,6 +23,11 @@ table { border-collapse: collapse; width: 100%; }
 th, td { border: 1px solid #cccccc; padding: 10px 14px; text-align: left; font-size: 14px; }
 th { background: #1F3864; color: #ffffff; font-weight: 700; letter-spacing: 0.04em; }
 tr:nth-child(even) td { background: #f2f2f2; }
+
+/* Opening quote block */
+.quote-block { text-align: center; padding: 18px 16px; margin: 0 0 28px; }
+.quote-block p { font-size: 17px; font-style: italic; color: #1c1c1e; margin: 0 0 8px; line-height: 1.5; }
+.quote-block .attribution { font-size: 14px; font-style: normal; color: #1F3864; font-weight: 700; }
 
 /* Callouts */
 .note, .depth, .tip, .caution { border-left: 4px solid; padding: 12px 16px; margin: 20px 0; }
@@ -92,16 +97,31 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 .bio-snapshot .stage { color: #1F3864; }
 .bio-snapshot p { margin: 6px 0; font-size: 14px; }
 .bio-snapshot .bio-quote { font-style: italic; color: #1c1c1e; }
+.bio-snapshot ul { margin: 8px 0 4px; padding-left: 20px; font-size: 14px; }
+.bio-snapshot li { margin-bottom: 3px; }
 
-/* Alphabetical bio reference section */
+/* Who's Who + search */
+.task-search-box { border: 2px solid #1F3864; border-radius: 8px; padding: 18px; background: #f2f2f2; margin-bottom: 18px; }
+.task-search-box label { display: block; font-weight: 700; color: #1F3864; margin-bottom: 8px; font-size: 14px; }
+.task-search-box input[type="text"] { width: 100%; padding: 10px; border: 1px solid #cccccc; border-radius: 4px; font-size: 15px; font-family: inherit; }
+.task-results { margin-top: 12px; }
+.task-results .table-wrap { margin-bottom: 0; }
+.filter-row { margin-bottom: 14px; }
+.filter-row input[type="text"] { width: 100%; padding: 10px; border: 1px solid #cccccc; border-radius: 4px; font-size: 15px; font-family: inherit; }
+.filter-count { font-size: 13px; color: #1c1c1e; margin: 6px 0 14px; }
+
 .az-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-.az-bar button { background: #f2f2f2; border: 1px solid #cccccc; color: #1F3864; font-weight: 700; width: 32px; height: 32px; border-radius: 4px; font-size: 14px; }
+.az-bar button { background: #ffffff; border: 1px solid #cccccc; color: #1F3864; font-weight: 700; width: 32px; height: 32px; border-radius: 4px; font-size: 14px; }
 .az-bar button:hover, .az-bar button:focus { background: #1F3864; color: #ffffff; }
 .az-bar button.disabled { opacity: 0.3; pointer-events: none; }
 .bio-card { border: 1px solid #cccccc; border-radius: 6px; margin-bottom: 12px; }
 .bio-card summary { padding: 12px 16px; font-size: 16px; font-weight: 700; color: #1F3864; }
+.bio-card .profession-tag { font-weight: 400; font-size: 13px; color: #1c1c1e; }
 .bio-card .section-body p { font-size: 14px; }
 .bio-card .bio-quote { font-style: italic; background: #fffbf0; border-left: 4px solid #d97706; padding: 10px 14px; margin: 10px 0; }
+.bio-card ul { margin: 8px 0; padding-left: 20px; font-size: 14px; }
+.bio-card li { margin-bottom: 4px; }
+.bio-card[hidden] { display: none !important; }
 
 @media print {
   #toc-toggle, #toc-menu { display: none !important; }
@@ -114,7 +134,13 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 <div class="wrap">
 
 <h1>The Yearn Method</h1>
-<p class="subtitle">A classroom hook for Miriam &mdash; Functional Skills, Landau</p>
+<p class="subtitle">Teaching them to yearn for the vast and endless sea.</p>
+
+<div class="quote-block">
+<p>&ldquo;If you want to build a ship, don't drum up the men to gather wood, divide the work, and give orders. Instead, teach them to yearn for the vast and endless sea.&rdquo;</p>
+<p class="attribution">&mdash; Antoine de Saint-Exup&eacute;ry</p>
+</div>
+
 <hr class="rule">
 
 <!-- SECTION 1: INTRO -->
@@ -122,9 +148,11 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 <summary>1. What This Is</summary>
 <div class="section-body">
 
-<p>Post-GCSE SEN learners at Landau don't need convincing that English and Maths matter. They already know. Knowing doesn't make them want to be there.</p>
+<p>Post-GCSE SEN learners at Landau don't need convincing that English and Maths matter. They already know. Knowing doesn't make them want to be there. What actually pulls a teenager toward something isn't the case for why it's useful, it's a story that gets under their skin, told by someone they already half-admire, that makes them lean forward before they've even realised they're learning anything.</p>
 
-<p>This tool is built around one line from Antoine de Saint-Exupéry: <em>"If you want to build a ship, don't drum up the men to gather wood, divide the work, and give orders. Instead, teach them to yearn for the vast and endless sea."</em></p>
+<p>That's what this tool gives Miriam. Not a set of arguments for why Functional Skills matters, but a two-minute ritual she runs at the start of a session that turns curiosity about someone famous into the doorway for that day's lesson, quietly, every time, without ever once mentioning why English or Maths is "important."</p>
+
+<p>This tool is built around one line from Antoine de Saint-Exup&eacute;ry: <em>"If you want to build a ship, don't drum up the men to gather wood, divide the work, and give orders. Instead, teach them to yearn for the vast and endless sea."</em></p>
 
 <div class="tip">
 <strong>The idea in one sentence:</strong> don't sell the subject. Sell the story of someone they already admire, and let the subject ride in on the back of it.
@@ -151,9 +179,9 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 </div>
 </details>
 
-<!-- SECTION 2: WHY IT WORKS -->
+<!-- SECTION 2: HOW IT WORKS -->
 <details id="sec-why">
-<summary>2. Why It Works</summary>
+<summary>2. How It Works</summary>
 <div class="section-body">
 
 <p>Nobody is being told English or Maths matters. Nobody is being lectured. The hook is curiosity about a person they already like, and the lesson rides in afterwards, already earned.</p>
@@ -246,6 +274,7 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
     <div class="bio-snapshot">
       <div class="stage">Quick snapshot — who they are, in case you're asked</div>
       <p id="revealBioText"></p>
+      <ul id="revealBioAchievements"></ul>
       <p class="bio-quote" id="revealBioQuote"></p>
     </div>
   </div>
@@ -254,22 +283,48 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 </div>
 </details>
 
-<!-- SECTION 4B: BIO REFERENCE -->
+<!-- SECTION 5: WHO'S WHO + STORY BANK -->
 <details id="sec-bios">
-<summary>4b. Who's Who — A-Z Quick Reference</summary>
+<summary>5. Who's Who &amp; The Story Bank</summary>
 <div class="section-body">
 
-<p>A short snapshot of everyone in the story bank, so you always know something about them even before you open the generator. Sorted alphabetically by first name.</p>
+<p>A short snapshot of everyone in the story bank, so you always know something about them even before you open the generator, plus the full detail on where every story comes from.</p>
+
+<div class="task-search-box">
+  <label for="taskSearchInput">Describe what you're looking for (a name, a subject, an achievement, a theme&hellip;)</label>
+  <input type="text" id="taskSearchInput" placeholder="e.g. footballer, Grammy, dyslexia, Cambridge scholarship...">
+  <div class="task-results" id="taskResults"></div>
+</div>
+
+<div class="filter-row">
+  <input type="text" id="bioFilterInput" placeholder="Browse: type to filter the list below...">
+  <p class="filter-count" id="bioFilterCount"></p>
+</div>
 
 <div class="az-bar" id="azBar"></div>
 <div id="bioList"></div>
 
+<h3>The Story Bank</h3>
+
+<p>Every story here is real, sourced and checkable &mdash; not invented. Each card links to where it came from so you can verify it yourself, or show a learner the source if they ask.</p>
+
+<div class="note">
+<strong>On the Maths gap:</strong> celebrity stories that credit a named Maths teacher directly are genuinely rare in the public record. Rather than force a weak match, the Maths and General entries lean on the strongest, most relatable pop-culture stories available &mdash; a scholarship, a turnaround, someone believing in them, a struggle overcome &mdash; each with a genuine, if sometimes loose, link to education. For this audience, what they recognise and relate to matters more than academic precision in the tag. If you come across a good direct Maths-teacher story &mdash; from a colleague, a local one, anything &mdash; that's the strongest addition you could make.</p>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Name</th><th>Subject tag</th><th>Angle</th></tr></thead>
+<tbody id="storyBankTableBody"></tbody>
+</table>
+</div>
+
 </div>
 </details>
 
-<!-- SECTION 5: FEEDBACK -->
+<!-- SECTION 6: FEEDBACK -->
 <details id="sec-feedback">
-<summary>5. How Did It Go?</summary>
+<summary>6. How Did It Go?</summary>
 <div class="section-body">
 
 <p>Log it after the lesson. Takes ten seconds, and the tips below adjust to what you tell it.</p>
@@ -304,48 +359,16 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 </div>
 </details>
 
-<!-- SECTION 6: ABOUT THE BANK -->
-<details id="sec-about">
-<summary>6. About the Story Bank</summary>
-<div class="section-body">
-
-<p>Every story here is real, sourced and checkable &mdash; not invented. Each card links to where it came from so you can verify it yourself, or show a learner the source if they ask.</p>
-
-<div class="note">
-<strong>Honest gap:</strong> celebrity stories that credit a named Maths teacher directly are genuinely rare in the public record &mdash; it's a real gap, not a search failure. The Maths and General entries lean on education-adjacent stories (a scholarship, a turnaround, a belief in someone) rather than a named Maths teacher. If you come across a good one &mdash; from a colleague, a local story, anything &mdash; that's the strongest addition you could make.</p>
-</div>
-
-<div class="table-wrap">
-<table>
-<thead><tr><th>Name</th><th>Subject tag</th><th>Angle</th></tr></thead>
-<tbody>
-<tr><td>Adele</td><td>English</td><td>English teacher, Miss McDonald</td></tr>
-<tr><td>Jay-Z</td><td>English</td><td>6th grade English teacher</td></tr>
-<tr><td>John Legend</td><td>English</td><td>English teacher built his confidence as a writer</td></tr>
-<tr><td>Ian Wright</td><td>General</td><td>Primary teacher who believed in him</td></tr>
-<tr><td>Stormzy</td><td>General</td><td>Cambridge Scholarship, "you're supposed to be here"</td></tr>
-<tr><td>Marcus Rashford</td><td>English</td><td>Didn't read a book until 17, now runs a book club</td></tr>
-<tr><td>Rihanna</td><td>General</td><td>PE teacher, "my mentor, my MVP"</td></tr>
-<tr><td>Billy Joel</td><td>General</td><td>Teacher told him to go professional</td></tr>
-<tr><td>Lizzo</td><td>Maths-adjacent</td><td>Teacher secured her a scholarship through discipline and belief</td></tr>
-</tbody>
-</table>
-</div>
-
-</div>
-</details>
-
 </div>
 
 <button id="toc-toggle" aria-expanded="false" aria-controls="toc-menu">Jump to &#9662;</button>
 <nav id="toc-menu" role="navigation" hidden>
   <a href="#sec-intro">1. What This Is</a>
-  <a href="#sec-why">2. Why It Works</a>
+  <a href="#sec-why">2. How It Works</a>
   <a href="#sec-how">3. How To Run It</a>
   <a href="#sec-generator">4. Pick Today's Story</a>
-  <a href="#sec-bios">4b. Who's Who — A-Z</a>
-  <a href="#sec-feedback">5. How Did It Go?</a>
-  <a href="#sec-about">6. About the Story Bank</a>
+  <a href="#sec-bios">5. Who's Who &amp; The Story Bank</a>
+  <a href="#sec-feedback">6. How Did It Go?</a>
 </nav>
 
 <script>
@@ -355,119 +378,212 @@ document.addEventListener('DOMContentLoaded', function () {
     {
       id: "adele",
       name: "Adele",
+      profession: "Singer-songwriter",
       subject: "English",
       quote: "“She really made us care, and we knew that she cared.”",
       teacher: "Adele's English teacher, Miss McDonald, at Chestnut Grove School in south London, sparked her love of literature. Years later, ITV filmed an emotional live reunion between the two.",
       tieIn: "You never know which lesson is the one that changes everything for you. Let's find out what today's has in store — we're learning...",
       sourceLabel: "CNN",
       sourceUrl: "https://www.cnn.com/2021/11/22/entertainment/adele-surprise-reunion-teacher-intl-scli-gbr",
-      bio: "Adele is a British singer-songwriter from London known for her powerful voice and huge-selling albums, including 19, 21, 25 and 30. She's won more Grammy Awards than almost any other artist of her generation.",
+      bio: "Adele is a British singer-songwriter from London known for her powerful voice and huge-selling albums, including 19, 21, 25 and 30.",
+      achievements: ["Won 16 Grammy Awards across her career", "19, 21, 25 and 30 are among the best-selling albums of the century", "21 alone sold over 30 million copies worldwide", "First artist to win the Grammy 'Big Four' twice"],
       bioQuote: "“She really made us care, and we knew that she cared.” — on her English teacher, Miss McDonald",
       bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Adele"
     },
     {
       id: "jayz",
       name: "Jay-Z",
+      profession: "Rapper & entrepreneur",
       subject: "English",
       quote: "“He took the reading test and he scored 12th grade in the sixth grade.”",
       teacher: "Jay-Z's sixth-grade English teacher, Renee Rosenblum-Lowden, spotted his gift with words early and fostered his love of language — long before he became one of the best-selling artists in the world.",
       tieIn: "One teacher, one lesson, spotted something in a kid that turned into a career built on words. Let's see what we can find today — we're learning...",
       sourceLabel: "Washington Post",
       sourceUrl: "https://www.washingtonpost.com/news/arts-and-entertainment/wp/2018/04/16/jay-z-is-known-for-his-words-meet-the-sixth-grade-teacher-he-credits-with-his-love-of-language/",
-      bio: "Jay-Z, born Shawn Carter in Brooklyn, is one of the most influential rappers and entrepreneurs in hip-hop history, known for hits like Empire State of Mind and 99 Problems. Beyond music he's built a business empire and is married to Beyoncé.",
+      bio: "Jay-Z, born Shawn Carter in Brooklyn, is one of the most influential rappers and entrepreneurs in hip-hop history, known for hits like Empire State of Mind and 99 Problems.",
+      achievements: ["Sold over 100 million records worldwide", "Won 24 Grammy Awards, among the most of any rapper", "Built a business empire spanning music, fashion and sports", "First rapper inducted into the Songwriters Hall of Fame"],
       bioQuote: "“He took the reading test and he scored 12th grade in the sixth grade.” — his teacher, Renee Rosenblum-Lowden",
       bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/JAY-Z"
     },
     {
       id: "legend",
       name: "John Legend",
+      profession: "Singer, songwriter & pianist",
       subject: "English",
       quote: "“She recognised my potential and showed me that I could write.”",
       teacher: "John Legend's English teacher, Mrs Bodey, at North High School built his confidence as a writer — long before the Grammys, Oscars and Emmys.",
       tieIn: "Someone believing you can write is where it starts. Let's build that today — we're learning...",
       sourceLabel: "Grammy.com",
       sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel",
-      bio: "John Legend is an American singer-songwriter and pianist known for blending R&B and soul, with hits including All of Me and Heaven. He's one of very few people ever to win an EGOT — an Emmy, a Grammy, an Oscar and a Tony.",
+      bio: "John Legend is an American singer-songwriter and pianist known for blending R&B and soul, with hits including All of Me and Heaven.",
+      achievements: ["One of very few people ever to win an EGOT (Emmy, Grammy, Oscar, Tony)", "Won an Oscar for co-writing 'Glory' from the film Selma", "All of Me has been streamed billions of times", "Has won 12 Grammy Awards"],
       bioQuote: "“She recognised my potential and showed me that I could write.” — on his English teacher, Mrs Bodey",
       bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/John-Legend"
     },
     {
       id: "wright",
       name: "Ian Wright",
+      profession: "Former footballer & broadcaster",
       subject: "General",
       quote: "“He believed in me and never gave up.”",
       teacher: "Ian Wright's primary school teacher, Mr Pigden, was the first person who ever believed in him. Thirty years later, they were reunited live on TV — both in tears.",
       tieIn: "One person believing in you can change everything. Let's see what today's lesson can do — we're learning...",
       sourceLabel: "TES",
       sourceUrl: "https://www.tes.com/news/ian-wright-his-best-teacher-mr-pigden",
-      bio: "Ian Wright is a retired footballer widely regarded as one of the greatest strikers in Premier League history, mainly known for his seven years at Arsenal. Since retiring he's become a much-loved TV pundit and was given an OBE for his sports and charity work.",
+      bio: "Ian Wright is a retired footballer widely regarded as one of the greatest strikers in Premier League history, mainly known for his seven years at Arsenal.",
+      achievements: ["Arsenal's all-time record goalscorer for over 20 years", "Didn't sign his first professional contract until age 22", "Became a hugely popular TV pundit after retiring", "Awarded an OBE for services to football and charity in 2023"],
       bioQuote: "“He believed in me and never gave up.” — on his primary school teacher, Mr Pigden",
       bioSource: "Wikipedia", bioSourceUrl: "https://en.wikipedia.org/wiki/Ian_Wright"
     },
     {
       id: "stormzy",
       name: "Stormzy",
+      profession: "Grime artist",
       subject: "General",
       quote: "“No, you're supposed to be here.”",
       teacher: "Stormzy funds a Cambridge Scholarship for Black students through his #Merky Foundation. One of the first scholars said the scholarship gave him the self-belief that he belonged there. Applications from Black students to Cambridge rose 131% since it launched.",
       tieIn: "Believing you belong somewhere is half the battle. Let's build that belief today — we're learning...",
       sourceLabel: "Varsity",
       sourceUrl: "https://www.varsity.co.uk/interviews/27541",
-      bio: "Stormzy is a British grime artist from Croydon whose 2015 freestyle 'Shut Up' launched him to fame. In 2019 he became the first Black British solo artist to headline Glastonbury, and he funds Cambridge scholarships for Black students through his #Merky Foundation.",
+      bio: "Stormzy is a British grime artist from Croydon whose 2015 freestyle 'Shut Up' launched him to mainstream fame.",
+      achievements: ["First Black British solo artist to headline Glastonbury (2019)", "Funds Cambridge Scholarships for Black UK students via #Merky", "Applications from Black students to Cambridge rose 131% since the scheme launched", "Won multiple BRIT Awards including Album of the Year"],
       bioQuote: "“No, you're supposed to be here.” — a Stormzy Scholar, on what the scholarship gave him",
       bioSource: "London Museum", bioSourceUrl: "https://www.londonmuseum.org.uk/collections/london-stories/stormzy-grime-change-maker/"
     },
     {
       id: "rashford",
       name: "Marcus Rashford",
+      profession: "Footballer",
       subject: "English",
       quote: "“I never saw reading as something to do.”",
       teacher: "Marcus Rashford didn't read his first book until he was 17. Now he runs a book club to make sure other young people get the chance earlier than he did.",
       tieIn: "It's never too late to start — and it's easier with someone in your corner. Let's crack on — we're learning...",
       sourceLabel: "Channel 4",
       sourceUrl: "https://www.channel4.com/news/footballer-marcus-rashford-i-want-to-give-the-next-generation-the-opportunity-to-read",
-      bio: "Marcus Rashford is an England and Manchester United footballer known for his pace and big-match goals. He's just as well known for his campaigning against child food poverty in the UK, which forced government policy changes and earned him an MBE.",
+      bio: "Marcus Rashford is an England and Manchester United footballer known for his pace and big-match goals.",
+      achievements: ["Campaign against child food poverty forced a UK government U-turn", "Awarded an MBE for his campaigning work", "Didn't read his first book until age 17, now runs his own book club", "Scored on his senior debut for Manchester United aged 18"],
       bioQuote: "“I never saw reading as something to do.” — on his own experience of reading as a kid",
       bioSource: "Wikipedia", bioSourceUrl: "https://en.wikipedia.org/wiki/Marcus_Rashford"
     },
     {
       id: "rihanna",
       name: "Rihanna",
+      profession: "Singer & entrepreneur",
       subject: "General",
       quote: "“My mentor, my champ, my MVP.”",
       teacher: "Rihanna's PE teacher, Roddy Estwick, at Combermere School in Barbados made a lasting impact on her long before global stardom.",
       tieIn: "A teacher who backs you shapes more than just one subject. Let's get into it — we're learning...",
       sourceLabel: "Grammy.com",
       sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel",
-      bio: "Rihanna, real name Robyn Fenty, is a Barbadian pop and R&B star known for hits like Umbrella and We Found Love. She's since built a huge beauty and fashion business empire alongside her music career.",
+      bio: "Rihanna, real name Robyn Fenty, is a Barbadian pop and R&B star known for hits like Umbrella and We Found Love.",
+      achievements: ["Became a billionaire through her Fenty Beauty brand", "One of the best-selling music artists of all time", "Fenty Beauty was praised for offering 40+ foundation shades from launch", "Second-wealthiest female entertainer in the world, per Forbes"],
       bioQuote: "“My mentor, my champ, my MVP.” — on her PE teacher, Roddy Estwick",
       bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Rihanna"
     },
     {
       id: "joel",
       name: "Billy Joel",
+      profession: "Singer-songwriter & pianist",
       subject: "General",
       quote: "“You should be a professional musician.”",
       teacher: "Billy Joel's music teacher, Chuck Arnold, told him directly he should go professional. Joel says it had a huge influence on the path he took.",
       tieIn: "Sometimes it just takes one person saying it out loud. Let's get started — we're learning...",
       sourceLabel: "Grammy.com",
       sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel",
-      bio: "Billy Joel is an American singer-songwriter and pianist who became a huge star in the 1970s and 80s with songs like Piano Man and We Didn't Start the Fire. Piano Man was inspired by his own time working in a piano bar early in his career.",
+      bio: "Billy Joel is an American singer-songwriter and pianist who became a huge star in the 1970s and 80s with songs like Piano Man and We Didn't Start the Fire.",
+      achievements: ["Piano Man was inspired by his own time working in a piano bar", "Multimillion-selling artist by the end of the 1970s", "Still one of the biggest-selling artists of all time in the US", "Wrote We Didn't Start the Fire as a rapid-fire history of his own lifetime"],
       bioQuote: "“You should be a professional musician.” — his music teacher, Chuck Arnold",
       bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Billy-Joel"
     },
     {
       id: "lizzo",
       name: "Lizzo",
+      profession: "Singer & rapper",
       subject: "Maths",
       quote: "“Those moments meant so much to me.”",
       teacher: "Lizzo's band director, Manny Gonzales, at Elsik High School helped secure her a scholarship through structure, discipline and belief in her ability — the same qualities that make numbers click when someone backs you to get there.",
       tieIn: "Structure and someone backing you — that's how skills turn into scholarships and careers. Let's build some structure today — we're learning...",
       sourceLabel: "Grammy.com",
       sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel",
-      bio: "Lizzo, born Melissa Jefferson, is an American singer and rapper known for hits like Truth Hurts and Juice, and for playing the flute on stage. She's also known for championing body positivity, and won an Emmy for hosting her own reality TV series.",
+      bio: "Lizzo, born Melissa Jefferson, is an American singer and rapper known for hits like Truth Hurts and Juice, and for playing the flute on stage.",
+      achievements: ["Won a Grammy for Best Pop Solo Performance ('Truth Hurts')", "Led the 2020 Grammy nominations with 8 nods", "Won a Primetime Emmy for hosting her own reality series", "A classically trained flautist who plays live on stage"],
       bioQuote: "“Those moments meant so much to me.” — on her band director, Manny Gonzales",
       bioSource: "Wikipedia", bioSourceUrl: "https://en.wikipedia.org/wiki/Lizzo"
+    },
+    {
+      id: "dualipa",
+      name: "Dua Lipa",
+      profession: "Singer-songwriter",
+      subject: "English",
+      quote: "“I remember Dua from when she was 10. She was a lovely kid.”",
+      teacher: "Dua Lipa's old Year 6 teacher, Rob, is now headteacher at her former primary school. She surprised him live on a BBC Radio 1 stunt years later — and admitted she didn't even get the lead role in the school play back then.",
+      tieIn: "Not getting picked first doesn't mean anything about where you end up. Let's see what today brings — we're learning...",
+      sourceLabel: "Camden New Journal",
+      sourceUrl: "https://www.camdennewjournal.co.uk/article/its-dua%E2%80%88lipa-in-your-classroom",
+      bio: "Dua Lipa is a British pop singer-songwriter known for her disco-infused sound and huge global hits.",
+      achievements: ["Won Best New Artist at the 2019 Grammys", "Future Nostalgia is one of the most acclaimed pop albums of its decade", "Won Best Pop Vocal Album at the Grammys in 2021", "One of the most-streamed female artists in the world"],
+      bioQuote: "“I wanted the lead part in the school play — I didn't get it.” — on missing out at her own primary school",
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Dua-Lipa"
+    },
+    {
+      id: "holland",
+      name: "Tom Holland",
+      profession: "Actor",
+      subject: "General",
+      quote: "“My spelling was really the biggest hurdle. I worked really hard at school.”",
+      teacher: "Tom Holland, who plays Spider-Man, was diagnosed with dyslexia at age 7 and later shared he has ADHD too. He says spelling was his biggest struggle at school, and that his parents backing him with 'as long as you try your best' carried him through it.",
+      tieIn: "Struggling with something doesn't mean you're not capable of something huge. Let's get stuck in — we're learning...",
+      sourceLabel: "NBC New York",
+      sourceUrl: "https://www.nbcnewyork.com/entertainment/entertainment-news/tom-holland-shares-diagnosed-adhd-dyslexia/6383449/",
+      bio: "Tom Holland is a British actor best known for playing Spider-Man in the Marvel films.",
+      achievements: ["Cast as Spider-Man after a global search of hundreds of actors", "Started out performing in the West End production of Billy Elliot", "Won a BAFTA Rising Star Award", "Diagnosed with dyslexia at 7, and later shared he also has ADHD"],
+      bioQuote: "“As long as you try your best.” — what his parents told him growing up with dyslexia",
+      bioSource: "Biography.com", bioSourceUrl: "https://www.biography.com/actors/a71594699/tom-holland-profile"
+    },
+    {
+      id: "hamilton",
+      name: "Lewis Hamilton",
+      profession: "Formula 1 driver",
+      subject: "Maths",
+      quote: "“I struggled in school and never felt like my voice was heard.”",
+      teacher: "Lewis Hamilton has spoken openly about struggling in school and being bullied, and now works directly with government on education reform through his Mission 44 foundation, pushing for every student to feel they belong in the classroom.",
+      tieIn: "Feeling unheard in school doesn't decide how far you go. Let's make sure everyone's heard today — we're learning...",
+      sourceLabel: "Motorsport.com",
+      sourceUrl: "https://www.motorsport.com/f1/news/my-voice-wasnt-heard-lewis-hamilton-meets-keir-starmer-to-drive-education-reform-/10729634/",
+      bio: "Lewis Hamilton is a Formula 1 driver widely regarded as one of the greatest in the sport's history.",
+      achievements: ["Holds the record for most F1 race wins ever (106)", "Tied for the most F1 World Championships ever (seven)", "First Black driver to win the F1 World Drivers' Championship (2008)", "Runs the Mission 44 foundation, pushing for fairer education access"],
+      bioQuote: "“I struggled in school and never felt like my voice was heard, that's why I know first-hand that ensuring every student feels they belong in school is vital.”",
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Lewis-Hamilton"
+    },
+    {
+      id: "sheeran",
+      name: "Ed Sheeran",
+      profession: "Singer-songwriter",
+      subject: "English",
+      quote: "“There's no one in the world that can be a better you than you.”",
+      teacher: "Ed Sheeran developed a stutter as a child after treatment for a birthmark, on top of poor eyesight and a missing eardrum. He's spoken to young people about it directly, telling them to 'embrace your weirdness' rather than treat it as something limiting.",
+      tieIn: "The things that make you different aren't the things holding you back. Let's get going — we're learning...",
+      sourceLabel: "TIME",
+      sourceUrl: "https://time.com/3916626/ed-sheeran-original-speech-stuttering/",
+      bio: "Ed Sheeran is a British singer-songwriter known for genre-crossing hits blending pop, folk and hip-hop.",
+      achievements: ["His ÷ (Divide) tour became the highest-grossing tour of all time", "Named the most-streamed artist in the world by Spotify in 2014", "'Shape of You' and 'Castle On The Hill' held the UK's top two chart spots at once — a first", "Won Song of the Year at the Grammys for 'Thinking Out Loud'"],
+      bioQuote: "“Embrace yourself, embrace your quirks, and embrace your weirdness.” — his message to young people about his own stutter",
+      bioSource: "TIME", bioSourceUrl: "https://time.com/3916626/ed-sheeran-original-speech-stuttering/"
+    },
+    {
+      id: "branson",
+      name: "Richard Branson",
+      profession: "Entrepreneur",
+      subject: "Maths",
+      quote: "“If something really interests me, I can excel at it.”",
+      teacher: "Richard Branson struggled badly at school with dyslexia and left at 16. He's since said dyslexia is his 'superpower' — it taught him to delegate and surround himself with people who complement what he's not naturally strong at.",
+      tieIn: "Struggling with a subject doesn't mean you can't build something huge around it. Let's get into it — we're learning...",
+      sourceLabel: "Robb Report",
+      sourceUrl: "https://robbreport.com/lifestyle/news/richard-branson-dyslexia-1234727547/",
+      bio: "Richard Branson is a British entrepreneur who built the Virgin Group from a single record store into a global business empire.",
+      achievements: ["Founded Virgin Records in 1973, a major label for punk and new wave", "Grew Virgin Atlantic from a single aircraft into a major airline", "Built Virgin into around 100 businesses by the 1990s", "Flew to space himself on a Virgin Galactic test flight in 2021"],
+      bioQuote: "“The fact that I was dyslexic meant that, from a very young age, I found fantastic people to surround myself with. It taught me to delegate.”",
+      bioSource: "Robb Report", bioSourceUrl: "https://robbreport.com/lifestyle/news/richard-branson-dyslexia-1234727547/"
     }
   ];
 
@@ -542,6 +658,13 @@ document.addEventListener('DOMContentLoaded', function () {
     var srcEl = document.getElementById("revealSource");
     srcEl.innerHTML = "Source: <a href=\"" + story.sourceUrl + "\" target=\"_blank\" rel=\"noopener\">" + story.sourceLabel + "</a>";
     document.getElementById("revealBioText").textContent = story.bio;
+    var achEl = document.getElementById("revealBioAchievements");
+    achEl.innerHTML = "";
+    story.achievements.forEach(function (a) {
+      var li = document.createElement("li");
+      li.textContent = a;
+      achEl.appendChild(li);
+    });
     document.getElementById("revealBioQuote").innerHTML = story.bioQuote + " <span style=\"font-weight:400; font-style:normal;\">(Source: <a href=\"" + story.bioSourceUrl + "\" target=\"_blank\" rel=\"noopener\">" + story.bioSource + "</a>)</span>";
     revealCard.hidden = false;
     markUsed(story.id);
@@ -598,6 +721,23 @@ document.addEventListener('DOMContentLoaded', function () {
     fbResponse.hidden = false;
   });
 
+  // Build searchable tag string per story
+  stories.forEach(function (s) {
+    s._searchBlob = [
+      s.name, s.profession, s.subject, s.bio, s.bioQuote, s.teacher,
+      s.achievements.join(" ")
+    ].join(" ").toLowerCase();
+  });
+
+  // Story Bank table
+  var storyBankBody = document.getElementById("storyBankTableBody");
+  stories.forEach(function (s) {
+    var tr = document.createElement("tr");
+    var angle = s.bioQuote.split("—")[0].replace(/[“”]/g, "").trim();
+    tr.innerHTML = "<td>" + s.name + "</td><td>" + s.subject + "</td><td>" + angle + "</td>";
+    storyBankBody.appendChild(tr);
+  });
+
   // A-Z bio reference section
   var azBar = document.getElementById("azBar");
   var bioList = document.getElementById("bioList");
@@ -627,22 +767,86 @@ document.addEventListener('DOMContentLoaded', function () {
     azBar.appendChild(btn);
   }
 
+  var bioCardRefs = [];
   sortedStories.forEach(function (s) {
     var letter = s.name.charAt(0).toUpperCase();
     var anchor = document.createElement("div");
     anchor.id = "bio-letter-" + letter;
     var card = document.createElement("details");
     card.className = "bio-card";
+    card.dataset.storyId = s.id;
+    var achList = s.achievements.map(function (a) { return "<li>" + a + "</li>"; }).join("");
     card.innerHTML =
-      "<summary>" + s.name + " <span style=\"font-weight:400; font-size:13px; color:#1c1c1e;\">(" + s.subject + ")</span></summary>" +
+      "<summary>" + s.name + " <span class=\"profession-tag\">— " + s.profession + "</span></summary>" +
       "<div class=\"section-body\">" +
       "<p>" + s.bio + "</p>" +
       "<p class=\"bio-quote\">" + s.bioQuote + "</p>" +
+      "<ul>" + achList + "</ul>" +
       "<p class=\"source-line\">Source: <a href=\"" + s.bioSourceUrl + "\" target=\"_blank\" rel=\"noopener\">" + s.bioSource + "</a></p>" +
       "</div>";
     bioList.appendChild(anchor);
     bioList.appendChild(card);
+    bioCardRefs.push({ story: s, card: card });
   });
+
+  // Plain filter search
+  var bioFilterInput = document.getElementById("bioFilterInput");
+  var bioFilterCount = document.getElementById("bioFilterCount");
+  function applyBioFilter() {
+    var q = bioFilterInput.value.trim().toLowerCase();
+    var visibleCount = 0;
+    bioCardRefs.forEach(function (ref) {
+      var match = !q || ref.story._searchBlob.indexOf(q) !== -1;
+      ref.card.hidden = !match;
+      if (match) visibleCount++;
+    });
+    bioFilterCount.textContent = q ? ("Showing " + visibleCount + " of " + stories.length) : "";
+  }
+  bioFilterInput.addEventListener("input", applyBioFilter);
+
+  // Describe-your-task search box
+  var taskSearchInput = document.getElementById("taskSearchInput");
+  var taskResults = document.getElementById("taskResults");
+  function runTaskSearch() {
+    var q = taskSearchInput.value.trim().toLowerCase();
+    if (!q) { taskResults.innerHTML = ""; return; }
+    var terms = q.split(/\s+/).filter(Boolean);
+    var scored = stories.map(function (s) {
+      var score = 0;
+      terms.forEach(function (t) {
+        if (s._searchBlob.indexOf(t) !== -1) score++;
+        if (s.name.toLowerCase().indexOf(t) !== -1) score += 2;
+      });
+      return { story: s, score: score };
+    }).filter(function (r) { return r.score > 0; })
+      .sort(function (a, b) { return b.score - a.score; })
+      .slice(0, 5);
+
+    if (!scored.length) {
+      taskResults.innerHTML = "<p style=\"font-size:14px; margin:0;\">No matches. Try a different word, or browse the A-Z list below.</p>";
+      return;
+    }
+    var rows = scored.map(function (r) {
+      return "<tr><td><a href=\"#bio-letter-" + r.story.name.charAt(0).toUpperCase() + "\" class=\"task-result-link\" data-id=\"" + r.story.id + "\">" + r.story.name + "</a></td><td>" + r.story.profession + "</td></tr>";
+    }).join("");
+    taskResults.innerHTML = "<div class=\"table-wrap\"><table><thead><tr><th>Name</th><th>Known for</th></tr></thead><tbody>" + rows + "</tbody></table></div>";
+    taskResults.querySelectorAll(".task-result-link").forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        var id = link.getAttribute("data-id");
+        var ref = bioCardRefs.filter(function (r) { return r.story.id === id; })[0];
+        if (ref) {
+          document.getElementById("sec-bios").open = true;
+          ref.card.hidden = false;
+          ref.card.open = true;
+          bioFilterInput.value = "";
+          applyBioFilter();
+          ref.card.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+  }
+  taskSearchInput.addEventListener("input", runTaskSearch);
 
   // Floating TOC
   var tocToggle = document.getElementById("toc-toggle");
