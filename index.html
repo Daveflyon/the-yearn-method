@@ -6,8 +6,8 @@
 <title>The Yearn Method — Miriam's Classroom Tool</title>
 <style>
 * { box-sizing: border-box; }
-body { margin: 0; padding: 48px 16px 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; font-weight: 400; color: #1c1c1e; background: #ffffff; }
-@media (min-width: 640px) { body { padding: 48px 32px 0; } }
+body { margin: 0; padding: 58px 16px 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; font-weight: 400; color: #1c1c1e; background: #ffffff; }
+@media (min-width: 640px) { body { padding: 58px 32px 0; } }
 .wrap { max-width: 900px; margin: 0 auto; padding-bottom: 90px; }
 h1 { font-size: 28px; font-weight: 700; color: #1F3864; text-align: center; margin: 32px 0 4px; }
 .subtitle { text-align: center; font-size: 19px; font-weight: 400; color: #1F3864; margin: 0 0 16px; }
@@ -86,8 +86,9 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 
 /* Floating TOC */
 #toc-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 1000; background: #1F3864; color: #ffffff; border: none; border-radius: 4px; padding: 10px 16px; font-weight: 700; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-#expandAllBtn { position: fixed; top: 0; left: 0; width: 100%; z-index: 1001; background: #1F3864; color: #ffffff; border: none; border-radius: 0; padding: 14px 16px; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.2); cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 14px; text-align: center; }
-#expandAllBtn:hover, #expandAllBtn:focus { background: #2c54a0; }
+#expandBar { position: fixed; top: 0; left: 0; width: 100%; z-index: 1001; background: #1F3864; box-shadow: 0 2px 8px rgba(0,0,0,0.2); padding: 10px 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+#expandBar button { background: #1F3864; color: #ffffff; border: 1px solid #ffffff; border-radius: 4px; padding: 8px 14px; font-weight: 700; cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
+#expandBar button:hover, #expandBar button:focus { background: #2c54a0; }
 #toc-menu { position: fixed; bottom: 76px; right: 24px; z-index: 1000; background: #1F3864; border-radius: 4px; max-height: 60vh; overflow-y: auto; padding: 10px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.3); min-width: 220px; }
 #toc-menu a { display: block; color: #ffffff; text-decoration: none; padding: 10px 18px; font-size: 14px; }
 #toc-menu a:hover, #toc-menu a:focus { background: #2c54a0; }
@@ -127,7 +128,7 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 .bio-card[hidden] { display: none !important; }
 
 @media print {
-  #toc-toggle, #toc-menu, #expandAllBtn { display: none !important; }
+  #toc-toggle, #toc-menu, #expandBar { display: none !important; }
   body { background: #ffffff; }
   a { color: #1c1c1e; }
 }
@@ -365,7 +366,10 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 
 </div>
 
-<button id="expandAllBtn" aria-label="Expand or collapse all sections">Expand all</button>
+<div id="expandBar">
+  <button id="expandAllBtn" aria-label="Expand all sections">Expand all sections</button>
+  <button id="minimiseAllBtn" aria-label="Minimise all sections">Minimise all sections</button>
+</div>
 <button id="toc-toggle" aria-expanded="false" aria-controls="toc-menu">Jump to &#9662;</button>
 <nav id="toc-menu" role="navigation" hidden>
   <a href="#sec-intro">1. What This Is</a>
@@ -679,25 +683,16 @@ document.addEventListener('DOMContentLoaded', function () {
   var usedProgress = document.getElementById("usedProgress");
 
   var expandAllBtn = document.getElementById("expandAllBtn");
+  var minimiseAllBtn = document.getElementById("minimiseAllBtn");
   var allDetails = Array.prototype.slice.call(document.querySelectorAll(".wrap > details"));
-  function syncExpandAllLabel() {
-    if (!expandAllBtn) return;
-    var anyClosed = allDetails.some(function (d) { return !d.open; });
-    expandAllBtn.textContent = anyClosed ? "Expand all" : "Collapse all";
-  }
   function setAllDetails(openState) {
     allDetails.forEach(function (d) { d.open = openState; });
-    syncExpandAllLabel();
   }
   if (expandAllBtn) {
-    expandAllBtn.addEventListener("click", function () {
-      var anyClosed = allDetails.some(function (d) { return !d.open; });
-      setAllDetails(anyClosed);
-    });
-    allDetails.forEach(function (d) {
-      d.addEventListener("toggle", syncExpandAllLabel);
-    });
-    syncExpandAllLabel();
+    expandAllBtn.addEventListener("click", function () { setAllDetails(true); });
+  }
+  if (minimiseAllBtn) {
+    minimiseAllBtn.addEventListener("click", function () { setAllDetails(false); });
   }
 
   function getUsed() {
