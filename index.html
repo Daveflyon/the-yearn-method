@@ -87,6 +87,22 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 
 .progress-note { font-size: 13px; color: #1c1c1e; margin-top: 10px; }
 
+/* Bio snapshot inside reveal card */
+.bio-snapshot { margin-top: 14px; padding: 12px 14px; background: #f2f2f2; border-radius: 6px; border-left: 4px solid #1F3864; }
+.bio-snapshot .stage { color: #1F3864; }
+.bio-snapshot p { margin: 6px 0; font-size: 14px; }
+.bio-snapshot .bio-quote { font-style: italic; color: #1c1c1e; }
+
+/* Alphabetical bio reference section */
+.az-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.az-bar button { background: #f2f2f2; border: 1px solid #cccccc; color: #1F3864; font-weight: 700; width: 32px; height: 32px; border-radius: 4px; font-size: 14px; }
+.az-bar button:hover, .az-bar button:focus { background: #1F3864; color: #ffffff; }
+.az-bar button.disabled { opacity: 0.3; pointer-events: none; }
+.bio-card { border: 1px solid #cccccc; border-radius: 6px; margin-bottom: 12px; }
+.bio-card summary { padding: 12px 16px; font-size: 16px; font-weight: 700; color: #1F3864; }
+.bio-card .section-body p { font-size: 14px; }
+.bio-card .bio-quote { font-style: italic; background: #fffbf0; border-left: 4px solid #d97706; padding: 10px 14px; margin: 10px 0; }
+
 @media print {
   #toc-toggle, #toc-menu { display: none !important; }
   body { background: #ffffff; }
@@ -227,8 +243,26 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
     <p class="teacher-line" id="revealTeacher"></p>
     <div class="lesson-tie" id="revealTieIn"></div>
     <p class="source-line" id="revealSource"></p>
+    <div class="bio-snapshot">
+      <div class="stage">Quick snapshot — who they are, in case you're asked</div>
+      <p id="revealBioText"></p>
+      <p class="bio-quote" id="revealBioQuote"></p>
+    </div>
   </div>
 </div>
+
+</div>
+</details>
+
+<!-- SECTION 4B: BIO REFERENCE -->
+<details id="sec-bios">
+<summary>4b. Who's Who — A-Z Quick Reference</summary>
+<div class="section-body">
+
+<p>A short snapshot of everyone in the story bank, so you always know something about them even before you open the generator. Sorted alphabetically by first name.</p>
+
+<div class="az-bar" id="azBar"></div>
+<div id="bioList"></div>
 
 </div>
 </details>
@@ -309,6 +343,7 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
   <a href="#sec-why">2. Why It Works</a>
   <a href="#sec-how">3. How To Run It</a>
   <a href="#sec-generator">4. Pick Today's Story</a>
+  <a href="#sec-bios">4b. Who's Who — A-Z</a>
   <a href="#sec-feedback">5. How Did It Go?</a>
   <a href="#sec-about">6. About the Story Bank</a>
 </nav>
@@ -325,7 +360,10 @@ document.addEventListener('DOMContentLoaded', function () {
       teacher: "Adele's English teacher, Miss McDonald, at Chestnut Grove School in south London, sparked her love of literature. Years later, ITV filmed an emotional live reunion between the two.",
       tieIn: "You never know which lesson is the one that changes everything for you. Let's find out what today's has in store — we're learning...",
       sourceLabel: "CNN",
-      sourceUrl: "https://www.cnn.com/2021/11/22/entertainment/adele-surprise-reunion-teacher-intl-scli-gbr"
+      sourceUrl: "https://www.cnn.com/2021/11/22/entertainment/adele-surprise-reunion-teacher-intl-scli-gbr",
+      bio: "Adele is a British singer-songwriter from London known for her powerful voice and huge-selling albums, including 19, 21, 25 and 30. She's won more Grammy Awards than almost any other artist of her generation.",
+      bioQuote: "“She really made us care, and we knew that she cared.” — on her English teacher, Miss McDonald",
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Adele"
     },
     {
       id: "jayz",
@@ -335,7 +373,10 @@ document.addEventListener('DOMContentLoaded', function () {
       teacher: "Jay-Z's sixth-grade English teacher, Renee Rosenblum-Lowden, spotted his gift with words early and fostered his love of language — long before he became one of the best-selling artists in the world.",
       tieIn: "One teacher, one lesson, spotted something in a kid that turned into a career built on words. Let's see what we can find today — we're learning...",
       sourceLabel: "Washington Post",
-      sourceUrl: "https://www.washingtonpost.com/news/arts-and-entertainment/wp/2018/04/16/jay-z-is-known-for-his-words-meet-the-sixth-grade-teacher-he-credits-with-his-love-of-language/"
+      sourceUrl: "https://www.washingtonpost.com/news/arts-and-entertainment/wp/2018/04/16/jay-z-is-known-for-his-words-meet-the-sixth-grade-teacher-he-credits-with-his-love-of-language/",
+      bio: "Jay-Z, born Shawn Carter in Brooklyn, is one of the most influential rappers and entrepreneurs in hip-hop history, known for hits like Empire State of Mind and 99 Problems. Beyond music he's built a business empire and is married to Beyoncé.",
+      bioQuote: "“He took the reading test and he scored 12th grade in the sixth grade.” — his teacher, Renee Rosenblum-Lowden",
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/JAY-Z"
     },
     {
       id: "legend",
@@ -345,7 +386,10 @@ document.addEventListener('DOMContentLoaded', function () {
       teacher: "John Legend's English teacher, Mrs Bodey, at North High School built his confidence as a writer — long before the Grammys, Oscars and Emmys.",
       tieIn: "Someone believing you can write is where it starts. Let's build that today — we're learning...",
       sourceLabel: "Grammy.com",
-      sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel"
+      sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel",
+      bio: "John Legend is an American singer-songwriter and pianist known for blending R&B and soul, with hits including All of Me and Heaven. He's one of very few people ever to win an EGOT — an Emmy, a Grammy, an Oscar and a Tony.",
+      bioQuote: "“She recognised my potential and showed me that I could write.” — on his English teacher, Mrs Bodey",
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/John-Legend"
     },
     {
       id: "wright",
@@ -355,7 +399,10 @@ document.addEventListener('DOMContentLoaded', function () {
       teacher: "Ian Wright's primary school teacher, Mr Pigden, was the first person who ever believed in him. Thirty years later, they were reunited live on TV — both in tears.",
       tieIn: "One person believing in you can change everything. Let's see what today's lesson can do — we're learning...",
       sourceLabel: "TES",
-      sourceUrl: "https://www.tes.com/news/ian-wright-his-best-teacher-mr-pigden"
+      sourceUrl: "https://www.tes.com/news/ian-wright-his-best-teacher-mr-pigden",
+      bio: "Ian Wright is a retired footballer widely regarded as one of the greatest strikers in Premier League history, mainly known for his seven years at Arsenal. Since retiring he's become a much-loved TV pundit and was given an OBE for his sports and charity work.",
+      bioQuote: "“He believed in me and never gave up.” — on his primary school teacher, Mr Pigden",
+      bioSource: "Wikipedia", bioSourceUrl: "https://en.wikipedia.org/wiki/Ian_Wright"
     },
     {
       id: "stormzy",
@@ -365,7 +412,10 @@ document.addEventListener('DOMContentLoaded', function () {
       teacher: "Stormzy funds a Cambridge Scholarship for Black students through his #Merky Foundation. One of the first scholars said the scholarship gave him the self-belief that he belonged there. Applications from Black students to Cambridge rose 131% since it launched.",
       tieIn: "Believing you belong somewhere is half the battle. Let's build that belief today — we're learning...",
       sourceLabel: "Varsity",
-      sourceUrl: "https://www.varsity.co.uk/interviews/27541"
+      sourceUrl: "https://www.varsity.co.uk/interviews/27541",
+      bio: "Stormzy is a British grime artist from Croydon whose 2015 freestyle 'Shut Up' launched him to fame. In 2019 he became the first Black British solo artist to headline Glastonbury, and he funds Cambridge scholarships for Black students through his #Merky Foundation.",
+      bioQuote: "“No, you're supposed to be here.” — a Stormzy Scholar, on what the scholarship gave him",
+      bioSource: "London Museum", bioSourceUrl: "https://www.londonmuseum.org.uk/collections/london-stories/stormzy-grime-change-maker/"
     },
     {
       id: "rashford",
@@ -375,7 +425,10 @@ document.addEventListener('DOMContentLoaded', function () {
       teacher: "Marcus Rashford didn't read his first book until he was 17. Now he runs a book club to make sure other young people get the chance earlier than he did.",
       tieIn: "It's never too late to start — and it's easier with someone in your corner. Let's crack on — we're learning...",
       sourceLabel: "Channel 4",
-      sourceUrl: "https://www.channel4.com/news/footballer-marcus-rashford-i-want-to-give-the-next-generation-the-opportunity-to-read"
+      sourceUrl: "https://www.channel4.com/news/footballer-marcus-rashford-i-want-to-give-the-next-generation-the-opportunity-to-read",
+      bio: "Marcus Rashford is an England and Manchester United footballer known for his pace and big-match goals. He's just as well known for his campaigning against child food poverty in the UK, which forced government policy changes and earned him an MBE.",
+      bioQuote: "“I never saw reading as something to do.” — on his own experience of reading as a kid",
+      bioSource: "Wikipedia", bioSourceUrl: "https://en.wikipedia.org/wiki/Marcus_Rashford"
     },
     {
       id: "rihanna",
@@ -385,7 +438,10 @@ document.addEventListener('DOMContentLoaded', function () {
       teacher: "Rihanna's PE teacher, Roddy Estwick, at Combermere School in Barbados made a lasting impact on her long before global stardom.",
       tieIn: "A teacher who backs you shapes more than just one subject. Let's get into it — we're learning...",
       sourceLabel: "Grammy.com",
-      sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel"
+      sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel",
+      bio: "Rihanna, real name Robyn Fenty, is a Barbadian pop and R&B star known for hits like Umbrella and We Found Love. She's since built a huge beauty and fashion business empire alongside her music career.",
+      bioQuote: "“My mentor, my champ, my MVP.” — on her PE teacher, Roddy Estwick",
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Rihanna"
     },
     {
       id: "joel",
@@ -395,7 +451,10 @@ document.addEventListener('DOMContentLoaded', function () {
       teacher: "Billy Joel's music teacher, Chuck Arnold, told him directly he should go professional. Joel says it had a huge influence on the path he took.",
       tieIn: "Sometimes it just takes one person saying it out loud. Let's get started — we're learning...",
       sourceLabel: "Grammy.com",
-      sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel"
+      sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel",
+      bio: "Billy Joel is an American singer-songwriter and pianist who became a huge star in the 1970s and 80s with songs like Piano Man and We Didn't Start the Fire. Piano Man was inspired by his own time working in a piano bar early in his career.",
+      bioQuote: "“You should be a professional musician.” — his music teacher, Chuck Arnold",
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Billy-Joel"
     },
     {
       id: "lizzo",
@@ -405,7 +464,10 @@ document.addEventListener('DOMContentLoaded', function () {
       teacher: "Lizzo's band director, Manny Gonzales, at Elsik High School helped secure her a scholarship through structure, discipline and belief in her ability — the same qualities that make numbers click when someone backs you to get there.",
       tieIn: "Structure and someone backing you — that's how skills turn into scholarships and careers. Let's build some structure today — we're learning...",
       sourceLabel: "Grammy.com",
-      sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel"
+      sourceUrl: "https://www.grammy.com/news/artists-teachers-inspiration-music-in-our-schools-month-rihanna-katy-perry-adele-jay-z-lizzo-john-legend-lil-jon-billy-joel",
+      bio: "Lizzo, born Melissa Jefferson, is an American singer and rapper known for hits like Truth Hurts and Juice, and for playing the flute on stage. She's also known for championing body positivity, and won an Emmy for hosting her own reality TV series.",
+      bioQuote: "“Those moments meant so much to me.” — on her band director, Manny Gonzales",
+      bioSource: "Wikipedia", bioSourceUrl: "https://en.wikipedia.org/wiki/Lizzo"
     }
   ];
 
@@ -479,6 +541,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("revealTieIn").textContent = story.tieIn;
     var srcEl = document.getElementById("revealSource");
     srcEl.innerHTML = "Source: <a href=\"" + story.sourceUrl + "\" target=\"_blank\" rel=\"noopener\">" + story.sourceLabel + "</a>";
+    document.getElementById("revealBioText").textContent = story.bio;
+    document.getElementById("revealBioQuote").innerHTML = story.bioQuote + " <span style=\"font-weight:400; font-style:normal;\">(Source: <a href=\"" + story.bioSourceUrl + "\" target=\"_blank\" rel=\"noopener\">" + story.bioSource + "</a>)</span>";
     revealCard.hidden = false;
     markUsed(story.id);
   });
@@ -532,6 +596,52 @@ document.addEventListener('DOMContentLoaded', function () {
       '<p style="margin-top:10px;">' + tip.text + '</p>' +
       '<p style="margin-top:6px;">' + timingTip + '</p>';
     fbResponse.hidden = false;
+  });
+
+  // A-Z bio reference section
+  var azBar = document.getElementById("azBar");
+  var bioList = document.getElementById("bioList");
+  var sortedStories = stories.slice().sort(function (a, b) { return a.name.localeCompare(b.name); });
+  var lettersPresent = {};
+  sortedStories.forEach(function (s) { lettersPresent[s.name.charAt(0).toUpperCase()] = true; });
+
+  for (var c = 65; c <= 90; c++) {
+    var letter = String.fromCharCode(c);
+    var btn = document.createElement("button");
+    btn.textContent = letter;
+    if (!lettersPresent[letter]) {
+      btn.className = "disabled";
+      btn.setAttribute("tabindex", "-1");
+    } else {
+      btn.addEventListener("click", function (l) {
+        return function () {
+          var target = document.getElementById("bio-letter-" + l);
+          if (target) {
+            var parentDetails = document.getElementById("sec-bios");
+            parentDetails.open = true;
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        };
+      }(letter));
+    }
+    azBar.appendChild(btn);
+  }
+
+  sortedStories.forEach(function (s) {
+    var letter = s.name.charAt(0).toUpperCase();
+    var anchor = document.createElement("div");
+    anchor.id = "bio-letter-" + letter;
+    var card = document.createElement("details");
+    card.className = "bio-card";
+    card.innerHTML =
+      "<summary>" + s.name + " <span style=\"font-weight:400; font-size:13px; color:#1c1c1e;\">(" + s.subject + ")</span></summary>" +
+      "<div class=\"section-body\">" +
+      "<p>" + s.bio + "</p>" +
+      "<p class=\"bio-quote\">" + s.bioQuote + "</p>" +
+      "<p class=\"source-line\">Source: <a href=\"" + s.bioSourceUrl + "\" target=\"_blank\" rel=\"noopener\">" + s.bioSource + "</a></p>" +
+      "</div>";
+    bioList.appendChild(anchor);
+    bioList.appendChild(card);
   });
 
   // Floating TOC
