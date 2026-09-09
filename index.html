@@ -88,7 +88,8 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 /* Floating TOC */
 #toc-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 1000; background: #1F3864; color: #ffffff; border: none; border-radius: 4px; padding: 10px 16px; font-weight: 700; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
 #expandBar { position: fixed; top: 0; left: 0; width: 100%; z-index: 1001; background: #1F3864; box-shadow: 0 2px 8px rgba(0,0,0,0.2); padding: 10px 16px; display: flex; gap: 10px; flex-wrap: wrap; }
-#expandBar button { background: #1F3864; color: #ffffff; border: 1px solid #ffffff; border-radius: 4px; padding: 8px 14px; font-weight: 700; cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
+@media (max-width: 400px) { #expandBar { padding-left: 8px; padding-right: 8px; gap: 8px; } }
+#expandBar button { background: #1F3864; color: #ffffff; border: 1px solid #ffffff; border-radius: 4px; padding: 8px 14px; font-weight: 700; cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 14px; white-space: nowrap; }
 #expandBar button:hover, #expandBar button:focus { background: #2c54a0; }
 #expandBar .btn-icon { display: inline-block; margin-right: 6px; font-size: 16px; line-height: 1; }
 #toc-menu { position: fixed; bottom: 76px; right: 24px; z-index: 1000; background: #1F3864; border-radius: 4px; max-height: 60vh; overflow-y: auto; padding: 10px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.3); min-width: 220px; }
@@ -262,8 +263,10 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
       <option value="random">Surprise me</option>
     </select>
   </div>
-  <button class="btn-primary" id="generateBtn">Give me today's story</button>
-  <button class="btn-secondary" id="resetUsedBtn" style="margin-left:10px;">Reset used list</button>
+  <div class="picker-row">
+    <button class="btn-primary" id="generateBtn">Give me today's story</button>
+    <button class="btn-secondary" id="resetUsedBtn">Reset used list</button>
+  </div>
   <p class="progress-note" id="usedProgress"></p>
 
   <div class="reveal-card" id="revealCard" hidden>
@@ -347,8 +350,8 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 </div>
 
 <div id="expandBar">
-  <button id="expandAllBtn" aria-label="Expand all sections"><span class="btn-icon" aria-hidden="true">+</span>Expand all sections</button>
-  <button id="minimiseAllBtn" aria-label="Minimise all sections"><span class="btn-icon" aria-hidden="true">&ndash;</span>Minimise all sections</button>
+  <button id="expandAllBtn" aria-label="Expand sections"><span class="btn-icon" aria-hidden="true">+</span>Expand sections</button>
+  <button id="minimiseAllBtn" aria-label="Minimise sections"><span class="btn-icon" aria-hidden="true">&ndash;</span>Minimise sections</button>
 </div>
 <button id="toc-toggle" aria-expanded="false" aria-controls="toc-menu">Jump to &#9662;</button>
 <nav id="toc-menu" role="navigation" hidden>
