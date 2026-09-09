@@ -37,7 +37,7 @@ tr:nth-child(even) td { background: #f2f2f2; }
 .depth { border-color: #276221; background: #d9ead3; }
 
 /* Collapsible sections */
-details { border: 1px solid #cccccc; border-radius: 6px; margin-bottom: 16px; background: #ffffff; }
+details { border: 1px solid #cccccc; border-radius: 6px; margin-bottom: 16px; background: #ffffff; scroll-margin-top: 70px; }
 summary { cursor: pointer; padding: 14px 18px; font-weight: 700; color: #1F3864; font-size: 17px; list-style: none; display: flex; justify-content: space-between; align-items: center; }
 summary::-webkit-details-marker { display: none; }
 summary::after { content: "+"; font-size: 22px; color: #1F3864; }
@@ -64,12 +64,12 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 .picker-row select { flex: 1; min-width: 180px; padding: 10px; border: 1px solid #cccccc; border-radius: 4px; font-size: 15px; }
 
 .reveal-card { background: #ffffff; border: 1px solid #cccccc; border-radius: 8px; padding: 20px; margin-top: 18px; }
-.reveal-card .stage { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #1F3864; margin-bottom: 6px; }
-.reveal-card .quote-text { font-size: 19px; font-style: italic; color: #1c1c1e; margin: 10px 0; }
-.reveal-card .quote-context { font-size: 13px; color: #1F3864; font-weight: 700; margin: -4px 0 10px; }
-.reveal-card .who { font-size: 22px; font-weight: 700; color: #1F3864; margin: 10px 0 6px; }
-.reveal-card .teacher-line { font-size: 15px; margin-bottom: 10px; }
-.reveal-card .lesson-tie { font-size: 15px; background: #fffbf0; border-left: 4px solid #d97706; padding: 10px 14px; margin-top: 12px; }
+.stage { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #1F3864; margin-bottom: 6px; }
+.quote-text { font-size: 19px; font-style: italic; color: #1c1c1e; margin: 10px 0; }
+.quote-context { font-size: 13px; color: #1F3864; font-weight: 700; margin: -4px 0 10px; }
+.who { font-size: 22px; font-weight: 700; color: #1F3864; margin: 10px 0 6px; }
+.teacher-line { font-size: 15px; margin-bottom: 10px; }
+.lesson-tie { font-size: 15px; background: #fffbf0; border-left: 4px solid #d97706; padding: 10px 14px; margin-top: 12px; }
 .source-line { font-size: 13px; color: #1c1c1e; margin-top: 12px; }
 .source-line a { color: #1F3864; }
 
@@ -104,7 +104,7 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 .bio-snapshot ul { margin: 8px 0 4px; padding-left: 20px; font-size: 14px; }
 .bio-snapshot li { margin-bottom: 3px; }
 
-/* Who's Who + search */
+/* Story Bank: search + grouped tables + full cards */
 .task-search-box { border: 2px solid #1F3864; border-radius: 8px; padding: 18px; background: #f2f2f2; margin-bottom: 18px; }
 .task-search-box label { display: block; font-weight: 700; color: #1F3864; margin-bottom: 8px; font-size: 14px; }
 .task-search-box input[type="text"] { width: 100%; padding: 10px; border: 1px solid #cccccc; border-radius: 4px; font-size: 15px; font-family: inherit; }
@@ -114,14 +114,12 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 .filter-row input[type="text"] { width: 100%; padding: 10px; border: 1px solid #cccccc; border-radius: 4px; font-size: 15px; font-family: inherit; }
 .filter-count { font-size: 13px; color: #1c1c1e; margin: 6px 0 14px; }
 
-.az-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-.az-bar button { background: #ffffff; border: 1px solid #cccccc; color: #1F3864; font-weight: 700; width: 32px; height: 32px; border-radius: 4px; font-size: 14px; }
-.az-bar button:hover, .az-bar button:focus { background: #1F3864; color: #ffffff; }
-.az-bar button.disabled { opacity: 0.3; pointer-events: none; }
-.bio-card { border: 1px solid #cccccc; border-radius: 6px; margin-bottom: 12px; }
+.story-group { margin-bottom: 14px; }
+.story-group > summary { font-size: 16px; }
+.story-group tr[hidden] { display: none; }
+.bio-card { border: 1px solid #cccccc; border-radius: 6px; margin: 12px 0; }
 .bio-card summary { padding: 12px 16px; font-size: 16px; font-weight: 700; color: #1F3864; }
 .bio-card .profession-tag { font-weight: 400; font-size: 13px; color: #1c1c1e; }
-.bio-card .section-body p { font-size: 14px; }
 .bio-card .bio-quote { font-style: italic; background: #fffbf0; border-left: 4px solid #d97706; padding: 10px 14px; margin: 10px 0; }
 .bio-card ul { margin: 8px 0; padding-left: 20px; font-size: 14px; }
 .bio-card li { margin-bottom: 4px; }
@@ -274,6 +272,8 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
     <p class="who" id="revealWho"></p>
     <div class="stage">Step 3 &mdash; the teacher moment</div>
     <p class="teacher-line" id="revealTeacher"></p>
+    <div class="stage">The ask</div>
+    <p class="teacher-line" id="revealAsk"></p>
     <div class="lesson-tie" id="revealTieIn"></div>
     <p class="source-line" id="revealSource"></p>
     <div class="bio-snapshot">
@@ -288,12 +288,12 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 </div>
 </details>
 
-<!-- SECTION 5: WHO'S WHO + STORY BANK -->
+<!-- SECTION 5: STORY BANK -->
 <details id="sec-bios">
-<summary>5. Who's Who &amp; The Story Bank</summary>
+<summary>5. The Story Bank</summary>
 <div class="section-body">
 
-<p>A short snapshot of everyone in the story bank, so you always know something about them even before you open the generator, plus the full detail on where every story comes from.</p>
+<p>Every story here is real, sourced and checkable &mdash; not invented. Search or browse below, then click a name to open their full story: quote, teacher or education moment, the ask, the lesson tie-in, and where every fact comes from.</p>
 
 <div class="task-search-box">
   <label for="taskSearchInput">Describe what you're looking for (a name, a subject, an achievement, a theme&hellip;)</label>
@@ -302,27 +302,15 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 </div>
 
 <div class="filter-row">
-  <input type="text" id="bioFilterInput" placeholder="Browse: type to filter the list below...">
+  <input type="text" id="bioFilterInput" placeholder="Browse: type to filter everyone below...">
   <p class="filter-count" id="bioFilterCount"></p>
 </div>
 
-<div class="az-bar" id="azBar"></div>
-<div id="bioList"></div>
-
-<h3>The Story Bank</h3>
-
-<p>Every story here is real, sourced and checkable &mdash; not invented. Each card links to where it came from so you can verify it yourself, or show a learner the source if they ask.</p>
-
 <div class="note">
-<strong>On the Maths gap:</strong> celebrity stories that credit a named Maths teacher directly are genuinely rare in the public record. Rather than force a weak match, the Maths and General entries lean on the strongest, most relatable pop-culture stories available &mdash; a scholarship, a turnaround, someone believing in them, a struggle overcome &mdash; each with a genuine, if sometimes loose, link to education. For this audience, what they recognise and relate to matters more than academic precision in the tag. If you come across a good direct Maths-teacher story &mdash; from a colleague, a local one, anything &mdash; that's the strongest addition you could make.</p>
+<strong>On the Maths gap:</strong> celebrity stories that credit a named Maths teacher directly are genuinely rare in the public record. Rather than force a weak match, the Maths and General entries lean on the strongest, most relatable pop-culture stories available &mdash; a scholarship, a turnaround, someone believing in them, a struggle overcome &mdash; each with a genuine, if sometimes loose, link to education. For this audience, what they recognise and relate to matters more than academic precision in the tag. If you come across a good direct Maths-teacher story &mdash; from a colleague, a local one, anything &mdash; that's the strongest addition you could make.
 </div>
 
-<div class="table-wrap">
-<table>
-<thead><tr><th>Name</th><th>Subject tag</th><th>Angle</th></tr></thead>
-<tbody id="storyBankTableBody"></tbody>
-</table>
-</div>
+<div id="storyGroups"></div>
 
 </div>
 </details>
@@ -376,7 +364,7 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
   <a href="#sec-why">2. How It Works</a>
   <a href="#sec-how">3. How To Run It</a>
   <a href="#sec-generator">4. Pick Today's Story</a>
-  <a href="#sec-bios">5. Who's Who &amp; The Story Bank</a>
+  <a href="#sec-bios">5. The Story Bank</a>
   <a href="#sec-feedback">6. How Did It Go?</a>
 </nav>
 
@@ -398,7 +386,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Adele is a British singer-songwriter from London known for her powerful voice and huge-selling albums, including 19, 21, 25 and 30.",
       achievements: ["Won 16 Grammy Awards across her career", "19, 21, 25 and 30 are among the best-selling albums of the century", "21 alone sold over 30 million copies worldwide", "First artist to win the Grammy 'Big Four' twice"],
       bioQuote: "“She really made us care, and we knew that she cared.” — on her English teacher, Miss McDonald",
-      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Adele"
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Adele",
+      ask: "Who's someone that's made you care about something — and did you ever tell them?",
+      storyType: "teacher",
+      accolade: "16 Grammys"
     },
     {
       id: "jayz",
@@ -414,7 +405,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Jay-Z, born Shawn Carter in Brooklyn, is one of the most influential rappers and entrepreneurs in hip-hop history, known for hits like Empire State of Mind and 99 Problems.",
       achievements: ["Sold over 100 million records worldwide", "Won 24 Grammy Awards, among the most of any rapper", "Built a business empire spanning music, fashion and sports", "First rapper inducted into the Songwriters Hall of Fame"],
       bioQuote: "“He took the reading test and he scored 12th grade in the sixth grade.” — his teacher, Renee Rosenblum-Lowden",
-      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/JAY-Z"
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/JAY-Z",
+      ask: "Has anyone ever spotted something you were good at before you noticed it yourself?",
+      storyType: "teacher",
+      accolade: "24 Grammy Awards"
     },
     {
       id: "legend",
@@ -430,7 +424,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "John Legend is an American singer-songwriter and pianist known for blending R&B and soul, with hits including All of Me and Heaven.",
       achievements: ["One of very few people ever to win an EGOT (Emmy, Grammy, Oscar, Tony)", "Won an Oscar for co-writing 'Glory' from the film Selma", "All of Me has been streamed billions of times", "Has won 12 Grammy Awards"],
       bioQuote: "“She recognised my potential and showed me that I could write.” — on his English teacher, Mrs Bodey",
-      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/John-Legend"
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/John-Legend",
+      ask: "Has someone ever told you you were good at something before you believed it yourself?",
+      storyType: "teacher",
+      accolade: "EGOT winner"
     },
     {
       id: "wright",
@@ -446,7 +443,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Ian Wright is a retired footballer widely regarded as one of the greatest strikers in Premier League history, mainly known for his seven years at Arsenal.",
       achievements: ["Arsenal's all-time record goalscorer for over 20 years", "Didn't sign his first professional contract until age 22", "Became a hugely popular TV pundit after retiring", "Awarded an OBE for services to football and charity in 2023"],
       bioQuote: "“He believed in me and never gave up.” — on his primary school teacher, Mr Pigden",
-      bioSource: "Wikipedia", bioSourceUrl: "https://en.wikipedia.org/wiki/Ian_Wright"
+      bioSource: "Wikipedia", bioSourceUrl: "https://en.wikipedia.org/wiki/Ian_Wright",
+      ask: "Who's someone that's never given up on you, even when things got hard?",
+      storyType: "teacher",
+      accolade: "Arsenal's all-time top scorer"
     },
     {
       id: "stormzy",
@@ -462,7 +462,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Stormzy is a British grime artist from Croydon whose 2015 freestyle 'Shut Up' launched him to mainstream fame.",
       achievements: ["First Black British solo artist to headline Glastonbury (2019)", "Funds Cambridge Scholarships for Black UK students via #Merky", "Applications from Black students to Cambridge rose 131% since the scheme launched", "Won multiple BRIT Awards including Album of the Year"],
       bioQuote: "“No, you're supposed to be here.” — a Stormzy Scholar, on what the scholarship gave him",
-      bioSource: "London Museum", bioSourceUrl: "https://www.londonmuseum.org.uk/collections/london-stories/stormzy-grime-change-maker/"
+      bioSource: "London Museum", bioSourceUrl: "https://www.londonmuseum.org.uk/collections/london-stories/stormzy-grime-change-maker/",
+      ask: "Have you ever walked into a room and felt like you didn't belong there?",
+      storyType: "teacher",
+      accolade: "First Black headliner"
     },
     {
       id: "rashford",
@@ -478,7 +481,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Marcus Rashford is an England and Manchester United footballer known for his pace and big-match goals.",
       achievements: ["Campaign against child food poverty forced a UK government U-turn", "Awarded an MBE for his campaigning work", "Didn't read his first book until age 17, now runs his own book club", "Scored on his senior debut for Manchester United aged 18"],
       bioQuote: "“I never saw reading as something to do.” — on his own experience of reading as a kid",
-      bioSource: "Wikipedia", bioSourceUrl: "https://en.wikipedia.org/wiki/Marcus_Rashford"
+      bioSource: "Wikipedia", bioSourceUrl: "https://en.wikipedia.org/wiki/Marcus_Rashford",
+      ask: "Is there something you've always avoided because you didn't think it was for you?",
+      storyType: "struggle",
+      accolade: "MBE for campaigning"
     },
     {
       id: "rihanna",
@@ -494,7 +500,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Rihanna, real name Robyn Fenty, is a Barbadian pop and R&B star known for hits like Umbrella and We Found Love.",
       achievements: ["Became a billionaire through her Fenty Beauty brand", "One of the best-selling music artists of all time", "Fenty Beauty was praised for offering 40+ foundation shades from launch", "Second-wealthiest female entertainer in the world, per Forbes"],
       bioQuote: "“My mentor, my champ, my MVP.” — on her PE teacher, Roddy Estwick",
-      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Rihanna"
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Rihanna",
+      ask: "Which teacher has stuck in your memory the most?",
+      storyType: "teacher",
+      accolade: "Fenty Beauty billionaire"
     },
     {
       id: "joel",
@@ -510,7 +519,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Billy Joel is an American singer-songwriter and pianist who became a huge star in the 1970s and 80s with songs like Piano Man and We Didn't Start the Fire.",
       achievements: ["Piano Man was inspired by his own time working in a piano bar", "Multimillion-selling artist by the end of the 1970s", "Still one of the biggest-selling artists of all time in the US", "Wrote We Didn't Start the Fire as a rapid-fire history of his own lifetime"],
       bioQuote: "“You should be a professional musician.” — his music teacher, Chuck Arnold",
-      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Billy-Joel"
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Billy-Joel",
+      ask: "Has anyone ever told you, straight out, that you were good enough to do something big?",
+      storyType: "teacher",
+      accolade: "Multimillion-selling artist"
     },
     {
       id: "lizzo",
@@ -526,7 +538,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Lizzo, born Melissa Jefferson, is an American singer and rapper known for hits like Truth Hurts and Juice, and for playing the flute on stage.",
       achievements: ["Won a Grammy for Best Pop Solo Performance ('Truth Hurts')", "Led the 2020 Grammy nominations with 8 nods", "Won a Primetime Emmy for hosting her own reality series", "A classically trained flautist who plays live on stage"],
       bioQuote: "“Those moments meant so much to me.” — on her band director, Manny Gonzales",
-      bioSource: "Wikipedia", bioSourceUrl: "https://en.wikipedia.org/wiki/Lizzo"
+      bioSource: "Wikipedia", bioSourceUrl: "https://en.wikipedia.org/wiki/Lizzo",
+      ask: "Who's pushed you to stick at something when you wanted to quit?",
+      storyType: "teacher",
+      accolade: "8 Grammy nominations"
     },
     {
       id: "dualipa",
@@ -542,7 +557,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Dua Lipa is a British pop singer-songwriter known for her disco-infused sound and huge global hits.",
       achievements: ["Won Best New Artist at the 2019 Grammys", "Future Nostalgia is one of the most acclaimed pop albums of its decade", "Won Best Pop Vocal Album at the Grammys in 2021", "One of the most-streamed female artists in the world"],
       bioQuote: "“I wanted the lead part in the school play — I didn't get it.” — on missing out at her own primary school",
-      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Dua-Lipa"
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Dua-Lipa",
+      ask: "Is there a teacher who'd still remember you if you walked back into their classroom today?",
+      storyType: "teacher",
+      accolade: "Grammy Best New Artist"
     },
     {
       id: "holland",
@@ -558,7 +576,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Tom Holland is a British actor best known for playing Spider-Man in the Marvel films.",
       achievements: ["Cast as Spider-Man after a global search of hundreds of actors", "Started out performing in the West End production of Billy Elliot", "Won a BAFTA Rising Star Award", "Diagnosed with dyslexia at 7, and later shared he also has ADHD"],
       bioQuote: "“As long as you try your best.” — what his parents told him growing up with dyslexia",
-      bioSource: "Biography.com", bioSourceUrl: "https://www.biography.com/actors/a71594699/tom-holland-profile"
+      bioSource: "Biography.com", bioSourceUrl: "https://www.biography.com/actors/a71594699/tom-holland-profile",
+      ask: "Is there something at school that feels harder for you than it looks like it should?",
+      storyType: "struggle",
+      accolade: "BAFTA Rising Star"
     },
     {
       id: "hamilton",
@@ -574,7 +595,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Lewis Hamilton is a Formula 1 driver widely regarded as one of the greatest in the sport's history.",
       achievements: ["Holds the record for most F1 race wins ever (106)", "Tied for the most F1 World Championships ever (seven)", "First Black driver to win the F1 World Drivers' Championship (2008)", "Runs the Mission 44 foundation, pushing for fairer education access"],
       bioQuote: "“I struggled in school and never felt like my voice was heard, that's why I know first-hand that ensuring every student feels they belong in school is vital.”",
-      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Lewis-Hamilton"
+      bioSource: "Britannica", bioSourceUrl: "https://www.britannica.com/biography/Lewis-Hamilton",
+      ask: "Have you ever felt like nobody was really listening to you?",
+      storyType: "struggle",
+      accolade: "7x F1 champion"
     },
     {
       id: "sheeran",
@@ -590,7 +614,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Ed Sheeran is a British singer-songwriter known for genre-crossing hits blending pop, folk and hip-hop.",
       achievements: ["His ÷ (Divide) tour became the highest-grossing tour of all time", "Named the most-streamed artist in the world by Spotify in 2014", "'Shape of You' and 'Castle On The Hill' held the UK's top two chart spots at once — a first", "Won Song of the Year at the Grammys for 'Thinking Out Loud'"],
       bioQuote: "“Embrace yourself, embrace your quirks, and embrace your weirdness.” — his message to young people about his own stutter",
-      bioSource: "TIME", bioSourceUrl: "https://time.com/3916626/ed-sheeran-original-speech-stuttering/"
+      bioSource: "TIME", bioSourceUrl: "https://time.com/3916626/ed-sheeran-original-speech-stuttering/",
+      ask: "Is there something about yourself you used to be embarrassed about?",
+      storyType: "struggle",
+      accolade: "Highest-grossing tour ever"
     },
     {
       id: "branson",
@@ -606,7 +633,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Richard Branson is a British entrepreneur who built the Virgin Group from a single record store into a global business empire.",
       achievements: ["Founded Virgin Records in 1973, a major label for punk and new wave", "Grew Virgin Atlantic from a single aircraft into a major airline", "Built Virgin into around 100 businesses by the 1990s", "Flew to space himself on a Virgin Galactic test flight in 2021"],
       bioQuote: "“The fact that I was dyslexic meant that, from a very young age, I found fantastic people to surround myself with. It taught me to delegate.”",
-      bioSource: "Robb Report", bioSourceUrl: "https://robbreport.com/lifestyle/news/richard-branson-dyslexia-1234727547/"
+      bioSource: "Robb Report", bioSourceUrl: "https://robbreport.com/lifestyle/news/richard-branson-dyslexia-1234727547/",
+      ask: "Have you ever felt like school just wasn't built for the way your brain works?",
+      storyType: "struggle",
+      accolade: "Virgin Group founder"
     },
     {
       id: "zayn",
@@ -622,7 +652,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Zayn Malik is a British singer-songwriter from Bradford, formerly of One Direction, who became one of the biggest-selling solo artists to come out of a boy band.",
       achievements: ["Debut solo single 'Pillowtalk' went straight to Number 1 in the UK and US", "First UK artist ever to debut at Number 1 on the US Hot 100 with a debut single", "Debut album Mind of Mine went to Number 1 in both the UK and US", "Won the Billboard Music Award for New Artist of the Year with One Direction and again solo \u2014 the only artist to do it twice"],
       bioQuote: "\u201cI was pretty wild. I could never focus, couldn't get a handle on where my brain wanted to go.\u201d \u2014 on growing up before his ADHD diagnosis",
-      bioSource: "E! News", bioSourceUrl: "https://www.eonline.com/news/806459/zayn-malik-reveals-struggle-with-adhd"
+      bioSource: "E! News", bioSourceUrl: "https://www.eonline.com/news/806459/zayn-malik-reveals-struggle-with-adhd",
+      ask: "Have you ever been labelled 'the difficult one' when something else was actually going on?",
+      storyType: "struggle",
+      accolade: "First UK No.1 debut"
     },
     {
       id: "hawke",
@@ -638,7 +671,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Maya Hawke is a British-American actor and singer-songwriter, best known for playing Robin in Stranger Things.",
       achievements: ["Played Robin Buckley in Stranger Things from 2019 to 2025", "Cast as Jo March in BBC's Little Women after leaving drama school", "Released four studio albums as a singer-songwriter, starting with Blush in 2020", "Won a Saturn Award for Best Supporting Actress for her Stranger Things role"],
       bioQuote: "\u201cIt is, like, one of the great blessings of my life in a lot of ways.\u201d \u2014 on living with dyslexia",
-      bioSource: "TODAY", bioSourceUrl: "https://www.today.com/popculture/maya-hawke-says-she-was-kicked-out-school-because-she-t191088"
+      bioSource: "TODAY", bioSourceUrl: "https://www.today.com/popculture/maya-hawke-says-she-was-kicked-out-school-because-she-t191088",
+      ask: "Have you ever felt behind everyone else at something, even when you were trying your hardest?",
+      storyType: "struggle",
+      accolade: "Stranger Things star"
     },
     {
       id: "boyle",
@@ -654,7 +690,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Susan Boyle is a Scottish singer who became a global star overnight after her 2009 Britain's Got Talent audition, aged 47.",
       achievements: ["Her audition performance of 'I Dreamed a Dream' became a worldwide viral sensation", "Has sold more than 25 million albums worldwide", "Diagnosed with Asperger's syndrome at 51, after decades of being misunderstood at school", "Has toured and recorded steadily since her 2009 breakthrough"],
       bioQuote: "\u201cAsperger's doesn't define me. It's a condition that I have to live with and work through, but I feel more relaxed about myself.\u201d",
-      bioSource: "CBS News", bioSourceUrl: "https://www.cbsnews.com/news/susan-boyle-i-have-aspergers-syndrome"
+      bioSource: "CBS News", bioSourceUrl: "https://www.cbsnews.com/news/susan-boyle-i-have-aspergers-syndrome",
+      ask: "Have you ever felt like people didn't understand you, even when you couldn't explain why?",
+      storyType: "struggle",
+      accolade: "25 million albums sold"
     },
     {
       id: "bronze",
@@ -670,7 +709,124 @@ document.addEventListener('DOMContentLoaded', function () {
       bio: "Lucy Bronze is an England international footballer, widely regarded as one of the greatest defenders in the history of the women's game.",
       achievements: ["Won UEFA Women's Euro 2022 and Euro 2025 with England", "Won 5 Champions League titles \u2014 3 with Lyon, 2 with Barcelona \u2014 more than any other English player", "First English footballer, male or female, to win The Best FIFA Women's Player award (2020)", "Diagnosed with ADHD and autism as an adult, and calls it her superpower on the pitch"],
       bioQuote: "\u201cAll the things I have because of autism have worked in my advantage \u2014 that's my hyper-focus on football.\u201d",
-      bioSource: "Yahoo Sports", bioSourceUrl: "https://sports.yahoo.com/article/england-star-lucy-bronze-opens-124409499.html"
+      bioSource: "Yahoo Sports", bioSourceUrl: "https://sports.yahoo.com/article/england-star-lucy-bronze-opens-124409499.html",
+      ask: "Have you ever felt anxious about something and not known how to explain it to anyone?",
+      storyType: "struggle",
+      accolade: "5x Champions League winner"
+    },
+    {
+      id: "mofarah",
+      name: "Mo Farah",
+      profession: "Olympic distance runner",
+      subject: "General",
+      quote: "“Alan became like a father figure to me. Even now I call him ‘Sir’.”",
+      quoteContext: "in a Pride of Britain Awards profile of his former PE teacher, Alan Watkinson",
+      teacher: "At Feltham Community College, PE teacher Alan Watkinson spotted something in a competitive, hard-to-manage 13-year-old called Mo Farah that nobody else had. Watkinson drove him to running clubs and competitions, helped him navigate the paperwork to represent Britain, and stuck with him for years after he left school. Farah went on to become Britain's greatest ever distance runner, still calls Watkinson 'Sir' to this day, and had him stand as best man at his wedding.",
+      tieIn: "You never know which teacher might end up standing next to you on the biggest day of your life. Let's find out what today's lesson has in store — we're learning...",
+      sourceLabel: "Pride of Britain Awards",
+      sourceUrl: "https://prideofbritain.com/award-winner/2012-winner/alan-watkinson/",
+      bio: "Mo Farah is a British distance runner who moved to the UK from Somalia as a child and became the most successful male track distance runner in Olympic history.",
+      achievements: ["4x Olympic gold medallist (5,000m and 10,000m, London 2012 and Rio 2016)", "6x World Championship gold medallist", "First man to win both the 5,000m and 10,000m titles at two consecutive Olympics", "Knighted for services to athletics in 2017"],
+      bioQuote: "“Alan became like a father figure to me. Even now I call him ‘Sir’.” — Mo Farah, on PE teacher Alan Watkinson",
+      bioSource: "Pride of Britain Awards", bioSourceUrl: "https://prideofbritain.com/award-winner/2012-winner/alan-watkinson/",
+      ask: "Has anyone ever put time into you that they didn't have to?",
+      storyType: "teacher",
+      accolade: "4x Olympic gold"
+    },
+    {
+      id: "malala",
+      name: "Malala Yousafzai",
+      profession: "Education activist, Nobel Peace Prize laureate",
+      subject: "General",
+      quote: "“One child, one teacher, one pen and one book can change the world.”",
+      quoteContext: "in her UN Youth Assembly speech on Malala Day, 12 July 2013",
+      teacher: "Malala Yousafzai grew up in Pakistan's Swat Valley, where the Taliban ordered girls' schools shut. She kept going to school anyway and wrote about it publicly, and in October 2012, aged 15, she was shot in the head by a Taliban gunman on her school bus for refusing to stop. She survived, and nine months later stood up at the United Nations on her 16th birthday to tell the world that education, not fear, was the way forward.",
+      tieIn: "Sometimes it isn't one teacher but the whole idea of school that's worth fighting for. Let's find out what today's lesson has in store — we're learning...",
+      sourceLabel: "UN News",
+      sourceUrl: "https://news.un.org/en/story/2013/07/444472",
+      bio: "Malala Yousafzai is a Pakistani education activist who survived being shot by the Taliban in 2012 and became the youngest-ever Nobel Peace Prize laureate in 2014.",
+      achievements: ["Survived being shot by the Taliban in October 2012 for advocating girls' education", "Youngest-ever Nobel Peace Prize laureate, awarded in 2014 aged 17", "Founded the Malala Fund to campaign for girls' education worldwide", "Author of the international bestseller 'I Am Malala'"],
+      bioQuote: "“One child, one teacher, one pen and one book can change the world.” — from her UN Youth Assembly speech, July 2013",
+      bioSource: "The Nobel Prize", bioSourceUrl: "https://www.nobelprize.org/prizes/peace/2014/yousafzai/speedread/",
+      ask: "What would you fight for the chance to do, if someone tried to stop you?",
+      storyType: "education",
+      accolade: "Youngest-ever Nobel laureate"
+    },
+    {
+      id: "sambailey",
+      name: "Sam Bailey",
+      profession: "Singer, X Factor winner",
+      subject: "General",
+      quote: "“She taught me that you can be special and you can be who you want to be.”",
+      quoteContext: "in her own 2017 'My Best Teacher' column for Tes Magazine",
+      teacher: "Before she was a prison officer, and long before she won The X Factor, Sam Bailey was a seven-year-old at St Philomena's Catholic Primary School in Orpington. Her teacher, Mrs Golden, was warm, endlessly patient, and had a way of making every single child in the room feel individually special. Bailey has said that's the lesson that stuck — long after the classroom, all the way to a music career.",
+      tieIn: "You never know which lesson is the one that changes everything for you. Let's find out what today's has in store — we're learning...",
+      sourceLabel: "Tes Magazine",
+      sourceUrl: "https://www.tes.com/magazine/archived/mrs-golden-sam-bailey",
+      bio: "Sam Bailey is an English singer and former prison officer who won series 10 of The X Factor UK in 2013.",
+      achievements: ["Won The X Factor UK, series 10 (2013)", "Debut single 'Skyscraper' was 2013's Christmas number one", "Debut album 'The Power of Love' went straight to UK number one", "Worked as a prison officer before her music career"],
+      bioQuote: "“She made every single child feel individually special.” — Sam Bailey on Mrs Golden",
+      bioSource: "Tes Magazine", bioSourceUrl: "https://www.tes.com/magazine/archived/mrs-golden-sam-bailey",
+      ask: "Which teacher made you feel like you specifically mattered, not just the class?",
+      storyType: "teacher",
+      accolade: "X Factor winner"
+    },
+    {
+      id: "dermotoleary",
+      name: "Dermot O'Leary",
+      profession: "TV presenter, X Factor host",
+      subject: "General",
+      quote: "“You would walk into the classroom believing in something and walk out thinking something completely different.”",
+      quoteContext: "in his own 'My Best Teacher' column for Tes Magazine",
+      teacher: "Long before he was hosting The X Factor, Dermot O'Leary was a sixth-former at St Benedict's Catholic College in Colchester, studying politics under a teacher called Mr Kelly. O'Leary says Kelly's weekly debates were so good you'd leave the room thinking differently than when you walked in, and it was Kelly who helped point him toward a career in broadcasting in the first place.",
+      tieIn: "Someone changing how you see something is where it starts. Let's build that today — we're learning...",
+      sourceLabel: "Tes Magazine",
+      sourceUrl: "https://www.tes.com/news/my-best-teacher-mr-kelly-dermot-oleary",
+      bio: "Dermot O'Leary is an English television and radio presenter, best known for hosting The X Factor UK.",
+      achievements: ["Hosted The X Factor UK for over a decade", "Long-running host of BBC Radio 2's Saturday breakfast show", "Presented Big Brother's Little Brother and the National Television Awards", "Studied politics at university after being taught by Mr Kelly"],
+      bioQuote: "“The most thorough teacher and a brilliant orator and debater.” — Dermot O'Leary on Mr Kelly",
+      bioSource: "Tes Magazine", bioSourceUrl: "https://www.tes.com/news/my-best-teacher-mr-kelly-dermot-oleary",
+      ask: "Has a teacher ever completely changed how you saw something?",
+      storyType: "teacher",
+      accolade: "X Factor host"
+    },
+    {
+      id: "whoopigoldberg",
+      name: "Whoopi Goldberg",
+      profession: "Actress and comedian",
+      subject: "General",
+      quote: "“When I was a kid they didn't call it dyslexia. They called it… you know, you were slow, or you were retarded, or whatever.”",
+      quoteContext: "in her 1994 Academy of Achievement interview",
+      teacher: "Long before anyone used the word 'dyslexia' around her, teachers and other adults simply told young Whoopi Goldberg she was slow. It wasn't until she was a grown woman that she finally got the real explanation for why reading had always been such a fight — she had dyslexia, a word nobody had given her as a kid. Understanding what was actually going on let her let go of labels like 'dumb' and 'stupid' that stuck with her for years.",
+      tieIn: "You don't need the right label yet to know there's nothing wrong with how your brain works. Let's find out what today's lesson has in store — we're learning...",
+      sourceLabel: "Academy of Achievement",
+      sourceUrl: "https://achievement.org/achiever/whoopi-goldberg/",
+      bio: "Whoopi Goldberg is an Oscar, Grammy, Emmy and Tony-winning actress and comedian, one of fewer than 20 entertainers to complete the EGOT, and a longtime co-host of The View.",
+      achievements: ["Academy Award, Best Supporting Actress, for Ghost (1991)", "One of fewer than 20 entertainers to achieve EGOT status", "Grammy Award, Best Comedy Recording (1985)", "Co-host of The View since 2007"],
+      bioQuote: "“As a little kid I lived in the projects, and you're the people I watched… made me want to be an actor.” — from her Best Supporting Actress acceptance speech, Oscars, 1991",
+      bioSource: "Academy Awards Acceptance Speech Database (oscars.org)", bioSourceUrl: "https://aaspeechesdb.oscars.org/link/063-4/",
+      ask: "Has anyone ever called you slow or stupid when really something else was going on?",
+      storyType: "struggle",
+      accolade: "EGOT winner"
+    },
+    {
+      id: "jimcarrey",
+      name: "Jim Carrey",
+      profession: "Actor and comedian",
+      subject: "General",
+      quote: "“She saved them because she KNEW what was going to happen in the world, Jimmy!”",
+      quoteContext: "on Jimmy Kimmel Live!, September 2018",
+      teacher: "In Grade Six, Jim Carrey spent class time drawing cartoons of his teacher, Mrs Jervadis, being attacked with missiles and axes — the kind of thing that usually gets a kid in serious trouble. She confiscated every drawing, but instead of throwing them away, she quietly kept the whole stack. Years later, once Carrey had become a famous comedian, she mailed them all back to him, and he realised she'd spotted something in his talent long before anyone paid him for it.",
+      tieIn: "Sometimes the person marking your work spots something in it long before you do. Let's find out what today's lesson has in store — we're learning...",
+      sourceLabel: "TheWrap",
+      sourceUrl: "https://www.thewrap.com/jim-carrey-trump-art-grade-school-teacher-kimmel-video/",
+      bio: "Jim Carrey is a Canadian-American actor and comedian known for Ace Ventura, The Mask, Dumb and Dumber, The Truman Show and Eternal Sunshine of the Spotless Mind.",
+      achievements: ["Two-time Golden Globe winner (The Truman Show, Man on the Moon)", "Starred in three major hits released the same year: Ace Ventura, The Mask and Dumb and Dumber (1994)", "Left school at 16 to work full-time and support his family", "Also an exhibited painter and political cartoonist"],
+      bioQuote: "“You can fail at what you don't want, so you might as well take a chance on doing what you love.” — from his 2014 commencement address",
+      bioSource: "Maharishi University of Management commencement speech transcript", bioSourceUrl: "https://www.rev.com/transcripts/jim-carrey-commencement-speech-transcript-2014-at-maharishi-university-of-management",
+      ask: "Has anyone ever kept something you made, even after you thought they'd throw it away?",
+      storyType: "teacher",
+      accolade: "Golden Globe winner"
     }
   ];
 
@@ -755,6 +911,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("revealQuoteContext").textContent = "(" + story.quoteContext + ")";
     document.getElementById("revealWho").textContent = story.name;
     document.getElementById("revealTeacher").textContent = story.teacher;
+    document.getElementById("revealAsk").textContent = story.ask;
     document.getElementById("revealTieIn").textContent = story.tieIn;
     var srcEl = document.getElementById("revealSource");
     srcEl.innerHTML = "Source: <a href=\"" + story.sourceUrl + "\" target=\"_blank\" rel=\"noopener\">" + story.sourceLabel + "</a>";
@@ -826,84 +983,122 @@ document.addEventListener('DOMContentLoaded', function () {
   stories.forEach(function (s) {
     s._searchBlob = [
       s.name, s.profession, s.subject, s.bio, s.bioQuote, s.teacher,
+      s.quote, s.ask, s.tieIn, s.accolade,
       s.achievements.join(" ")
     ].join(" ").toLowerCase();
   });
 
-  // Story Bank table
-  var storyBankBody = document.getElementById("storyBankTableBody");
-  stories.forEach(function (s) {
-    var tr = document.createElement("tr");
-    var angle = s.bioQuote.split("—")[0].replace(/[“”]/g, "").trim();
-    tr.innerHTML = "<td>" + s.name + "</td><td>" + s.subject + "</td><td>" + angle + "</td>";
-    storyBankBody.appendChild(tr);
-  });
-
-  // A-Z bio reference section
-  var azBar = document.getElementById("azBar");
-  var bioList = document.getElementById("bioList");
+  // Story Bank: grouped by storyType, each group a table (index) + full cards (detail)
+  var STORY_TYPE_ORDER = ["teacher", "education", "struggle"];
+  var STORY_TYPE_LABELS = {
+    teacher: "A Teacher Who Believed",
+    education: "What Learning Unlocked",
+    struggle: "Still Figuring It Out"
+  };
+  var storyGroupsEl = document.getElementById("storyGroups");
   var sortedStories = stories.slice().sort(function (a, b) { return a.name.localeCompare(b.name); });
-  var lettersPresent = {};
-  sortedStories.forEach(function (s) { lettersPresent[s.name.charAt(0).toUpperCase()] = true; });
+  var storyCardRefs = [];
 
-  for (var c = 65; c <= 90; c++) {
-    var letter = String.fromCharCode(c);
-    var btn = document.createElement("button");
-    btn.textContent = letter;
-    if (!lettersPresent[letter]) {
-      btn.className = "disabled";
-      btn.setAttribute("tabindex", "-1");
-    } else {
-      btn.addEventListener("click", function (l) {
-        return function () {
-          var target = document.getElementById("bio-letter-" + l);
-          if (target) {
-            var parentDetails = document.getElementById("sec-bios");
-            parentDetails.open = true;
-            target.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-        };
-      }(letter));
-    }
-    azBar.appendChild(btn);
-  }
+  STORY_TYPE_ORDER.forEach(function (type) {
+    var members = sortedStories.filter(function (s) { return s.storyType === type; });
+    if (!members.length) return;
 
-  var bioCardRefs = [];
-  sortedStories.forEach(function (s) {
-    var letter = s.name.charAt(0).toUpperCase();
-    var anchor = document.createElement("div");
-    anchor.id = "bio-letter-" + letter;
-    var card = document.createElement("details");
-    card.className = "bio-card";
-    card.dataset.storyId = s.id;
-    var achList = s.achievements.map(function (a) { return "<li>" + a + "</li>"; }).join("");
-    card.innerHTML =
-      "<summary>" + s.name + " <span class=\"profession-tag\">— " + s.profession + "</span></summary>" +
-      "<div class=\"section-body\">" +
-      "<p>" + s.bio + "</p>" +
-      "<p class=\"bio-quote\">" + s.bioQuote + "</p>" +
-      "<ul>" + achList + "</ul>" +
-      "<p class=\"source-line\">Source: <a href=\"" + s.bioSourceUrl + "\" target=\"_blank\" rel=\"noopener\">" + s.bioSource + "</a></p>" +
-      "</div>";
-    bioList.appendChild(anchor);
-    bioList.appendChild(card);
-    bioCardRefs.push({ story: s, card: card });
+    var groupDetails = document.createElement("details");
+    groupDetails.className = "story-group";
+    var summary = document.createElement("summary");
+    summary.textContent = STORY_TYPE_LABELS[type] + " (" + members.length + ")";
+    groupDetails.appendChild(summary);
+
+    var body = document.createElement("div");
+    body.className = "section-body";
+
+    var tableWrap = document.createElement("div");
+    tableWrap.className = "table-wrap";
+    var table = document.createElement("table");
+    var thead = document.createElement("thead");
+    thead.innerHTML = "<tr><th>Name</th><th>Subject</th><th>Known for</th><th>Accolade</th></tr>";
+    var tbody = document.createElement("tbody");
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    tableWrap.appendChild(table);
+    body.appendChild(tableWrap);
+
+    members.forEach(function (s) {
+      var tr = document.createElement("tr");
+      var nameTd = document.createElement("td");
+      var link = document.createElement("a");
+      link.href = "#story-card-" + s.id;
+      link.textContent = s.name;
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        openStoryCard(s.id);
+      });
+      nameTd.appendChild(link);
+      var subjTd = document.createElement("td"); subjTd.textContent = s.subject;
+      var knownTd = document.createElement("td"); knownTd.textContent = s.profession;
+      var accTd = document.createElement("td"); accTd.textContent = s.accolade;
+      tr.appendChild(nameTd); tr.appendChild(subjTd); tr.appendChild(knownTd); tr.appendChild(accTd);
+      tbody.appendChild(tr);
+
+      var achList = s.achievements.map(function (a) { return "<li>" + a + "</li>"; }).join("");
+      var card = document.createElement("details");
+      card.className = "bio-card";
+      card.id = "story-card-" + s.id;
+      card.innerHTML =
+        "<summary>" + s.name + " <span class=\"profession-tag\">— " + s.profession + "</span></summary>" +
+        "<div class=\"section-body\">" +
+        "<p class=\"quote-text\">" + s.quote + "</p>" +
+        "<p class=\"quote-context\">(" + s.quoteContext + ")</p>" +
+        "<p class=\"teacher-line\">" + s.teacher + "</p>" +
+        "<div class=\"stage\">The ask</div>" +
+        "<p class=\"teacher-line\">" + s.ask + "</p>" +
+        "<div class=\"lesson-tie\">" + s.tieIn + "</div>" +
+        "<p class=\"source-line\">Source: <a href=\"" + s.sourceUrl + "\" target=\"_blank\" rel=\"noopener\">" + s.sourceLabel + "</a></p>" +
+        "<div class=\"bio-snapshot\">" +
+        "<div class=\"stage\">Quick snapshot</div>" +
+        "<p>" + s.bio + "</p>" +
+        "<ul>" + achList + "</ul>" +
+        "<p class=\"bio-quote\">" + s.bioQuote + " <span style=\"font-weight:400; font-style:normal;\">(Source: <a href=\"" + s.bioSourceUrl + "\" target=\"_blank\" rel=\"noopener\">" + s.bioSource + "</a>)</span></p>" +
+        "</div>" +
+        "</div>";
+      body.appendChild(card);
+
+      storyCardRefs.push({ story: s, groupDetails: groupDetails, cardDetails: card, row: tr });
+    });
+
+    groupDetails.appendChild(body);
+    storyGroupsEl.appendChild(groupDetails);
   });
 
-  // Plain filter search
+  // Plain filter search — filters table rows across all groups
   var bioFilterInput = document.getElementById("bioFilterInput");
   var bioFilterCount = document.getElementById("bioFilterCount");
   function applyBioFilter() {
     var q = bioFilterInput.value.trim().toLowerCase();
     var visibleCount = 0;
-    bioCardRefs.forEach(function (ref) {
+    storyCardRefs.forEach(function (ref) {
       var match = !q || ref.story._searchBlob.indexOf(q) !== -1;
-      ref.card.hidden = !match;
+      ref.row.hidden = !match;
       if (match) visibleCount++;
     });
+    if (q) {
+      storyCardRefs.forEach(function (ref) { ref.groupDetails.open = true; });
+    }
     bioFilterCount.textContent = q ? ("Showing " + visibleCount + " of " + stories.length) : "";
   }
   bioFilterInput.addEventListener("input", applyBioFilter);
+
+  function openStoryCard(id) {
+    var ref = storyCardRefs.filter(function (r) { return r.story.id === id; })[0];
+    if (!ref) return;
+    document.getElementById("sec-bios").open = true;
+    ref.groupDetails.open = true;
+    ref.row.hidden = false;
+    ref.cardDetails.open = true;
+    bioFilterInput.value = "";
+    applyBioFilter();
+    ref.cardDetails.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
   // Describe-your-task search box
   var taskSearchInput = document.getElementById("taskSearchInput");
@@ -924,26 +1119,17 @@ document.addEventListener('DOMContentLoaded', function () {
       .slice(0, 5);
 
     if (!scored.length) {
-      taskResults.innerHTML = "<p style=\"font-size:14px; margin:0;\">No matches. Try a different word, or browse the A-Z list below.</p>";
+      taskResults.innerHTML = "<p style=\"font-size:14px; margin:0;\">No matches. Try a different word, or browse the groups below.</p>";
       return;
     }
     var rows = scored.map(function (r) {
-      return "<tr><td><a href=\"#bio-letter-" + r.story.name.charAt(0).toUpperCase() + "\" class=\"task-result-link\" data-id=\"" + r.story.id + "\">" + r.story.name + "</a></td><td>" + r.story.profession + "</td></tr>";
+      return "<tr><td><a href=\"#story-card-" + r.story.id + "\" class=\"task-result-link\" data-id=\"" + r.story.id + "\">" + r.story.name + "</a></td><td>" + r.story.profession + "</td></tr>";
     }).join("");
     taskResults.innerHTML = "<div class=\"table-wrap\"><table><thead><tr><th>Name</th><th>Known for</th></tr></thead><tbody>" + rows + "</tbody></table></div>";
     taskResults.querySelectorAll(".task-result-link").forEach(function (link) {
       link.addEventListener("click", function (e) {
         e.preventDefault();
-        var id = link.getAttribute("data-id");
-        var ref = bioCardRefs.filter(function (r) { return r.story.id === id; })[0];
-        if (ref) {
-          document.getElementById("sec-bios").open = true;
-          ref.card.hidden = false;
-          ref.card.open = true;
-          bioFilterInput.value = "";
-          applyBioFilter();
-          ref.card.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
+        openStoryCard(link.getAttribute("data-id"));
       });
     });
   }
