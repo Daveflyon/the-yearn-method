@@ -241,12 +241,12 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 </div>
 </details>
 
-<!-- SECTION 4: THE GENERATOR -->
-<details id="sec-generator">
-<summary>4. Pick Today's Story</summary>
+<!-- SECTION 4: FIND TODAY'S STORY (generator + story bank, merged) -->
+<details id="sec-find">
+<summary>4. Find Today's Story</summary>
 <div class="section-body">
 
-<p>Choose a subject focus, or leave on "Any" and let it pick for you. Each card gives you the quote, the reveal, the teacher moment, a ready-made lesson tie-in line, and the source so you can check it yourself.</p>
+<p>Choose a subject focus, or leave on "Any" and let it pick for you. Each card gives you the quote, the reveal, the teacher moment, the ask, a ready-made lesson tie-in line, and the source so you can check it yourself. Or search or browse the full story bank below and jump straight to anyone's full story.</p>
 
 <div class="generator-box">
   <div class="picker-row">
@@ -285,16 +285,6 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
   </div>
 </div>
 
-</div>
-</details>
-
-<!-- SECTION 5: STORY BANK -->
-<details id="sec-bios">
-<summary>5. The Story Bank</summary>
-<div class="section-body">
-
-<p>Every story here is real, sourced and checkable &mdash; not invented. Search or browse below, then click a name to open their full story: quote, teacher or education moment, the ask, the lesson tie-in, and where every fact comes from.</p>
-
 <div class="task-search-box">
   <label for="taskSearchInput">Describe what you're looking for (a name, a subject, an achievement, a theme&hellip;)</label>
   <input type="text" id="taskSearchInput" placeholder="e.g. footballer, Grammy, dyslexia, Cambridge scholarship...">
@@ -315,9 +305,9 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 </div>
 </details>
 
-<!-- SECTION 6: FEEDBACK -->
+<!-- SECTION 5: FEEDBACK -->
 <details id="sec-feedback">
-<summary>6. How Did It Go?</summary>
+<summary>5. How Did It Go?</summary>
 <div class="section-body">
 
 <p>Log it after the lesson. Takes ten seconds, and the tips below adjust to what you tell it.</p>
@@ -363,9 +353,8 @@ button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
   <a href="#sec-intro">1. What This Is</a>
   <a href="#sec-why">2. How It Works</a>
   <a href="#sec-how">3. How To Run It</a>
-  <a href="#sec-generator">4. Pick Today's Story</a>
-  <a href="#sec-bios">5. The Story Bank</a>
-  <a href="#sec-feedback">6. How Did It Go?</a>
+  <a href="#sec-find">4. Find Today's Story</a>
+  <a href="#sec-feedback">5. How Did It Go?</a>
 </nav>
 
 <script>
@@ -846,6 +835,44 @@ document.addEventListener('DOMContentLoaded', function () {
       ask: "Has a number ever told you something was worth taking seriously?",
       storyType: "teacher",
       accolade: "5B+ YouTube views"
+    },
+    {
+      id: "ianroberts",
+      name: "Ian Roberts",
+      profession: "Actor & former rugby league player",
+      subject: "English",
+      quote: "“K and C sounded the same, why were they different?”",
+      quoteContext: "in an ABC News Australia interview on his childhood struggle with reading",
+      teacher: "Ian Roberts struggled with reading his whole life, even through a professional rugby league career — he could avoid it because he was '100 per cent with numbers' and athletic success covered the gap. At 36 he decided to train as an actor, and hit a wall: he couldn't read his lines. Learning phonics as an adult opened what he calls a 'second world' he didn't know existed — and he says his life is 'so much better' now he can read.",
+      tieIn: "It's never too late to open a door you didn't know was there. Let's open one today — we're learning...",
+      sourceLabel: "ABC News (Australia)",
+      sourceUrl: "https://www.abc.net.au/news/2021-03-04/ian-roberts-overcame-literacy-hurdle-for-a-better-life/13206148",
+      bio: "Ian Roberts is an Australian actor and former international rugby league player who retrained as an actor at NIDA in his 30s.",
+      achievements: ["Played rugby league at international level for Australia", "Retrained as an actor at NIDA (National Institute of Dramatic Art) at age 36", "Learned to read fluently as an adult using phonics", "Became a public advocate for adult literacy support"],
+      bioQuote: "“It is so much better.” — on his life since learning to read as an adult",
+      bioSource: "ABC News (Australia)", bioSourceUrl: "https://www.abc.net.au/news/2021-03-04/ian-roberts-overcame-literacy-hurdle-for-a-better-life/13206148",
+      ask: "Is there something you've been avoiding because you don't think it's for you?",
+      storyType: "education",
+      accolade: "International rugby league star"
+    },
+    {
+      id: "jamieoliver",
+      name: "Jamie Oliver",
+      profession: "Chef & campaigner",
+      subject: "General",
+      quote: "“The kitchen saved me. I knew I had something to offer. I knew I wasn't a useless piece of shit.”",
+      quoteContext: "in his 2025 Channel 4 documentary on his dyslexia",
+      teacher: "Jamie Oliver left school with only two qualifications, struggling with dyslexia and feeling stupid and worthless in the classroom. It wasn't one teacher who turned it around — it was finding the kitchen, where what he was good at finally mattered. That's what rebuilt his confidence, not a subject he was told he'd passed.",
+      tieIn: "Sometimes the thing that saves you isn't a lesson, it's finding where you belong. Let's find that today — we're learning...",
+      sourceLabel: "EducationHQ / Channel 4",
+      sourceUrl: "https://educationhq.com/news/the-kitchen-saved-me-dyslexia-doco-most-painful-thing-for-jamie-oliver-194616/",
+      bio: "Jamie Oliver is a British chef, restaurateur and food education campaigner, known for Jamie's School Dinners and reforming school meal standards in the UK.",
+      achievements: ["Launched Jamie's School Dinners, changing UK school meal standards", "Built a global food and restaurant business from his 20s", "Campaigned publicly for dyslexia awareness and support in schools", "Sold over 45 million cookbooks worldwide"],
+      bioQuote: "“I knew I had something to offer.” — on finding the kitchen after struggling at school",
+      bioSource: "EducationHQ", bioSourceUrl: "https://educationhq.com/news/the-kitchen-saved-me-dyslexia-doco-most-painful-thing-for-jamie-oliver-194616/",
+      ask: "Is there a place — not a person — where you feel like your best self?",
+      storyType: "education",
+      accolade: "45M+ cookbooks sold"
     }
   ];
 
@@ -1110,7 +1137,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function openStoryCard(id) {
     var ref = storyCardRefs.filter(function (r) { return r.story.id === id; })[0];
     if (!ref) return;
-    document.getElementById("sec-bios").open = true;
+    document.getElementById("sec-find").open = true;
     ref.groupDetails.open = true;
     ref.row.hidden = false;
     ref.cardDetails.open = true;
@@ -1168,7 +1195,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
   tocMenu.querySelectorAll("a").forEach(function (a) {
-    a.addEventListener("click", function () {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      var target = document.getElementById(a.getAttribute("href").slice(1));
+      if (target) {
+        target.open = true;
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
       tocMenu.setAttribute("hidden", "");
       tocToggle.setAttribute("aria-expanded", "false");
     });
