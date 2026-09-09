@@ -50,6 +50,7 @@ button { font-family: Arial, Helvetica, sans-serif; cursor: pointer; }
 .btn-primary:hover { background: #2c54a0; }
 .btn-secondary { background: #ffffff; color: #1F3864; border: 2px solid #1F3864; padding: 10px 20px; border-radius: 4px; font-size: 14px; font-weight: 700; }
 .btn-secondary:hover { background: #f2f2f2; }
+.minimise-section-btn { display: block; margin: 20px 0 4px; }
 button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
 
 /* Badges */
@@ -1205,6 +1206,34 @@ document.addEventListener('DOMContentLoaded', function () {
       tocMenu.setAttribute("hidden", "");
       tocToggle.setAttribute("aria-expanded", "false");
     });
+  });
+
+  // Per-section "Minimise this section" button: appears at the bottom of a details'
+  // content only while it's open, and is removed from the DOM entirely (not just
+  // hidden) as soon as it closes. Applies uniformly to every <details> on the page —
+  // the 5 main sections, the 3 story-type groups, and every individual story card.
+  document.querySelectorAll("details").forEach(function (d) {
+    var body = d.querySelector(":scope > .section-body");
+    if (!body) return;
+    function sync() {
+      var btn = body.querySelector(":scope > .minimise-section-btn");
+      if (d.open && !btn) {
+        btn = document.createElement("button");
+        btn.className = "btn-secondary minimise-section-btn";
+        btn.textContent = "Minimise this section";
+        btn.addEventListener("click", function (e) {
+          e.preventDefault();
+          var summary = d.querySelector(":scope > summary");
+          d.open = false;
+          if (summary) summary.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        body.appendChild(btn);
+      } else if (!d.open && btn) {
+        btn.remove();
+      }
+    }
+    d.addEventListener("toggle", sync);
+    sync();
   });
 
 });
